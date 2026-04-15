@@ -131,57 +131,6 @@ textarea { min-height: 85px; }
 .progress-label { font-size: 0.76rem; color: var(--muted); margin-top: 0.4rem; text-align: center; }
 #status { margin-top: 0.8rem; font-size: 0.82rem; color: var(--muted); text-align: center; min-height: 1.2rem; }
 
-/* RESULTS */
-#results { max-width: 700px; margin: 0 auto 4rem; padding: 0 1.5rem; display: none; }
-.results-topbar {
-  background: var(--navy); color: var(--white);
-  border-radius: 8px 8px 0 0; padding: 1.1rem 1.4rem;
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
-}
-.results-topbar h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 400; }
-.results-topbar .sub { font-size: 0.75rem; color: #a0b0c0; }
-.results-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.action-btn {
-  background: transparent; border: 1px solid rgba(201,168,76,0.45); color: var(--gold);
-  font-family: 'Inter', sans-serif; font-size: 0.73rem;
-  padding: 0.38rem 0.85rem; border-radius: 4px; cursor: pointer; transition: all 0.2s;
-}
-.action-btn:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); }
-.action-btn.primary { background: var(--gold); color: var(--navy); font-weight: 600; border-color: var(--gold); }
-.action-btn.primary:hover { background: var(--gold2); }
-
-#concepts-container { border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; overflow: hidden; }
-
-.concept-card {
-  background: var(--white); border-bottom: 1px solid var(--border);
-  padding: 1.2rem 1.4rem; cursor: pointer; transition: background 0.15s;
-}
-.concept-card:last-child { border-bottom: none; }
-.concept-card:hover { background: #fdf8f0; }
-.concept-card.expanded { background: #fdf5e0; }
-
-.concept-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.4rem; }
-.concept-meta { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
-.concept-num { font-size: 0.67rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
-.concept-type { font-size: 0.67rem; background: #eee; color: #555; padding: 0.13rem 0.45rem; border-radius: 3px; }
-.concept-platform { font-size: 0.67rem; background: #dbeafe; color: #1d4ed8; padding: 0.13rem 0.45rem; border-radius: 3px; }
-.expand-icon { font-size: 0.72rem; color: var(--gold); flex-shrink: 0; transition: transform 0.2s; }
-.concept-card.expanded .expand-icon { transform: rotate(90deg); }
-
-.concept-hook { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; color: var(--navy); line-height: 1.4; margin-bottom: 0.35rem; }
-.concept-body { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
-
-.script-section { display: none; margin-top: 1.1rem; border-top: 1px solid var(--border); padding-top: 1.1rem; }
-.concept-card.expanded .script-section { display: block; }
-.script-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 0.55rem; }
-.script-text {
-  font-size: 0.87rem; line-height: 1.9; color: var(--text);
-  white-space: pre-wrap; background: #f9f5ed;
-  border: 1px solid #e8d9b5; border-radius: 4px;
-  padding: 0.9rem 1.1rem; font-family: 'Georgia', serif;
-}
-.script-duration { font-size: 0.72rem; color: var(--muted); margin-top: 0.4rem; }
-
 /* SPINNER */
 @keyframes spin { to { transform: rotate(360deg); } }
 .spinner {
@@ -379,32 +328,18 @@ footer a { color: var(--gold); text-decoration: none; }
   <!-- SUBMIT -->
   <div class="submit-area">
     <h3>Ready to generate your concepts?</h3>
-    <p class="sub-note">This generates 30 video concepts + full teleprompter scripts in ~90 seconds. Results will appear below for your review. The Schreier Group team will receive a full copy and follow up with your branded PDF.</p>
-    <button id="submit-btn" onclick="submitForm()">Generate My 30 Concepts + Scripts →</button>
+    <p class="sub-note">Fill out the form above and hit the button below. The Schreier Group team will receive your completed brief and follow up with your 30 custom concepts and full scripts as a branded PDF.</p>
+    <button id="submit-btn" onclick="submitForm()">Submit My Brand Brief →</button>
     <div class="progress-wrap" id="progress-wrap">
       <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
       <div class="progress-label" id="progress-label">Starting…</div>
     </div>
     <p id="status"></p>
-    <div id="thankyou-banner">✓ Your results are ready below! The Schreier Group team has been notified and will follow up with your full branded PDF shortly.</div>
+    <div id="thankyou-banner">✓ Your brief has been received! The Schreier Group team will review it and follow up with your 30 custom concepts and full teleprompter scripts as a branded PDF.</div>
   </div>
 
 </div><!-- /form-wrap -->
 
-<!-- RESULTS -->
-<div id="results">
-  <div class="results-topbar">
-    <div>
-      <h2 id="results-title">Your 30 Concepts &amp; Scripts</h2>
-      <div class="sub">Click any concept to read its full teleprompter script</div>
-    </div>
-    <div class="results-actions"><span style="font-size:0.78rem;color:#a0b0c0;font-style:italic;">The Schreier Group team will follow up with your full PDF shortly.</span>
-      
-      
-    </div>
-  </div>
-  <div id="concepts-container"></div>
-</div>
 
 <footer>
   <strong>Schreier Group LLC</strong> &nbsp;·&nbsp; Sales, Marketing &amp; HR Consulting &nbsp;·&nbsp;
@@ -431,7 +366,6 @@ function setProgress(pct, label) {
   document.getElementById('progress-label').textContent = label;
 }
 
-let globalConcepts = [];
 let globalBrand    = {};
 
 // ── Submit ────────────────────────────────────────────────────
@@ -452,7 +386,6 @@ async function submitForm() {
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span> Generating…';
   document.getElementById('progress-wrap').style.display = 'block';
-  document.getElementById('results').style.display = 'none';
   document.getElementById('thankyou-banner').style.display = 'none';
   setProgress(5, 'Sending to server…');
 
@@ -497,14 +430,12 @@ async function submitForm() {
       const err = await res.json().catch(() => ({}));
       throw new Error(err.error || `Server error ${res.status}`);
     }
-    const data = await res.json();
-    globalConcepts = data.concepts;
-    setProgress(100, 'Done!');
-    renderResults(globalConcepts);
-    document.getElementById('results-title').textContent = `${globalBrand.brand_name} — 30 Concepts & Scripts`;
+    await res.json(); // results go to admin email only
+    setProgress(100, 'Brief submitted!');
     document.getElementById('thankyou-banner').style.display = 'block';
     document.getElementById('status').textContent = '';
-    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('submit-btn').style.display = 'none';
+    document.getElementById('thankyou-banner').scrollIntoView({ behavior: 'smooth', block: 'center' });
   } catch (err) {
     clearInterval(progressTimer);
     document.getElementById('status').textContent = '⚠ ' + err.message;
@@ -512,183 +443,11 @@ async function submitForm() {
   }
 
   btn.disabled = false;
-  btn.innerHTML = 'Generate My 30 Concepts + Scripts →';
+  btn.innerHTML = 'Submit My Brand Brief →';
   document.getElementById('progress-wrap').style.display = 'none';
 }
 
-// ── Render ────────────────────────────────────────────────────
-function renderResults(concepts) {
-  const container = document.getElementById('concepts-container');
-  container.innerHTML = '';
-  concepts.forEach(c => {
-    const card = document.createElement('div');
-    card.className = 'concept-card';
-    card.innerHTML = `
-      <div class="concept-header">
-        <div class="concept-meta">
-          <span class="concept-num">Concept ${c.number}</span>
-          <span class="concept-type">${esc(c.type||'')}</span>
-          <span class="concept-platform">${esc(c.platform||'')}</span>
-        </div>
-        <span class="expand-icon">▶</span>
-      </div>
-      <div class="concept-hook">${esc(c.hook)}</div>
-      <div class="concept-body">${esc(c.concept)}</div>
-      <div class="script-section">
-        <div class="script-label">📄 Teleprompter Script</div>
-        <div class="script-text">${esc(c.script||'')}</div>
-        <div class="script-duration">Approx. ${dur(c.script)} · ${wc(c.script)} words</div>
-      </div>`;
-    card.addEventListener('click', () => card.classList.toggle('expanded'));
-    container.appendChild(card);
-  });
-  document.getElementById('results').style.display = 'block';
-}
-
-function wc(t) { return t ? t.split(/\s+/).filter(w=>w).length : 0; }
-function dur(t) { const s=Math.round(wc(t)/130*60); return s<60?`~${s}s`:`~${Math.floor(s/60)}m ${s%60}s`; }
 function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
-
-// ── Copy all ──────────────────────────────────────────────────
-function copyAll() {
-  const text = globalConcepts.map(c =>
-    `═══ CONCEPT ${c.number}: ${c.type} | ${c.platform} ═══\nHOOK: ${c.hook}\n\nOVERVIEW:\n${c.concept}\n\nSCRIPT:\n${c.script||''}`
-  ).join('\n\n────────────────────────────────\n\n');
-  navigator.clipboard.writeText(text).then(() => {
-    const b = document.querySelector('.action-btn');
-    b.textContent = '✓ Copied!';
-    setTimeout(() => b.textContent = 'Copy All', 2500);
-  });
-}
-
-// ── PDF ───────────────────────────────────────────────────────
-function downloadPDF() {
-  if (!globalConcepts.length) return;
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ unit: 'pt', format: 'letter' });
-  const pw = doc.internal.pageSize.getWidth();
-  const ph = doc.internal.pageSize.getHeight();
-  const M = 50;          // margin
-  const cw = pw - M*2;   // content width
-  const LH = 16;         // line height
-  const BOTTOM = ph - 60; // bottom boundary
-  let y = 0;
-
-  // ── draw page header (navy bar + gold line) ──
-  function pageHeader() {
-    doc.setFillColor(13,27,46); doc.rect(0,0,pw,42,'F');
-    doc.setFillColor(201,168,76); doc.rect(0,42,pw,3,'F');
-    doc.setTextColor(255,255,255); doc.setFontSize(11); doc.setFont('helvetica','bold');
-    doc.text('SCHREIER GROUP', M, 27);
-    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(160,176,192);
-    doc.text('Sales · Marketing · HR Consulting', M, 37);
-    doc.text('schreiergroup.com', pw - M, 27, {align:'right'});
-  }
-
-  // ── ensure there is room; add new page if not ──
-  function need(h) {
-    if (y + h > BOTTOM) {
-      doc.addPage();
-      y = 60;
-      pageHeader();
-    }
-  }
-
-  // ── write wrapped text, returns new y ──
-  function writeText(text, x, startY, maxW, lineH, color, fontStyle, fontSize) {
-    doc.setFontSize(fontSize || 10);
-    doc.setFont('helvetica', fontStyle || 'normal');
-    doc.setTextColor(...(color || [40,40,60]));
-    const lines = doc.splitTextToSize(String(text || ''), maxW);
-    for (const line of lines) {
-      need(lineH);
-      doc.text(line, x, y);
-      y += lineH;
-    }
-    return y;
-  }
-
-  // ── COVER PAGE ──────────────────────────────────────────────
-  doc.setFillColor(13,27,46); doc.rect(0,0,pw,ph,'F');
-  doc.setFillColor(201,168,76); doc.rect(0,ph/2-2,pw,4,'F');
-  doc.setTextColor(201,168,76); doc.setFontSize(10); doc.setFont('helvetica','bold');
-  doc.text('SCHREIER GROUP — CONTENT STRATEGY', pw/2, ph/2-130, {align:'center'});
-  doc.setTextColor(255,255,255); doc.setFontSize(30); doc.setFont('helvetica','normal');
-  doc.text('Social Media', pw/2, ph/2-55, {align:'center'});
-  doc.setFont('helvetica','italic');
-  doc.text('Concept Generator', pw/2, ph/2-20, {align:'center'});
-  doc.setFont('helvetica','normal'); doc.setFontSize(15); doc.setTextColor(201,168,76);
-  doc.text(globalBrand.brand_name||'Your Brand', pw/2, ph/2+45, {align:'center'});
-  doc.setFontSize(10); doc.setTextColor(160,176,192);
-  doc.text(new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}), pw/2, ph/2+65, {align:'center'});
-  doc.text('30 Video Concepts  ·  30 Full Teleprompter Scripts', pw/2, ph/2+82, {align:'center'});
-  if (globalBrand.submitter_name) {
-    doc.setFontSize(10);
-    doc.text('Prepared for: ' + globalBrand.submitter_name, pw/2, ph-70, {align:'center'});
-    doc.text(globalBrand.submitter_email||'', pw/2, ph-54, {align:'center'});
-  }
-
-  // ── CONCEPT PAGES ───────────────────────────────────────────
-  globalConcepts.forEach(c => {
-    doc.addPage();
-    pageHeader();
-    y = 58;
-
-    // ── concept header band ──
-    const headerH = 58;
-    doc.setFillColor(245,240,232); doc.rect(M, y, cw, headerH, 'F');
-    doc.setDrawColor(201,168,76); doc.setLineWidth(2.5); doc.line(M, y, M, y+headerH);
-
-    doc.setTextColor(201,168,76); doc.setFontSize(8); doc.setFont('helvetica','bold');
-    doc.text(
-      'CONCEPT ' + c.number + '   ·   ' + (c.type||'').toUpperCase() + '   ·   ' + (c.platform||'').toUpperCase(),
-      M+12, y+18
-    );
-    doc.setTextColor(13,27,46); doc.setFontSize(12); doc.setFont('helvetica','bold');
-    const hookWrapped = doc.splitTextToSize(c.hook||'', cw-24);
-    // fit hook into band — just first line if too long
-    doc.text(hookWrapped[0]||'', M+12, y+38);
-    if (hookWrapped[1]) doc.text(hookWrapped[1], M+12, y+52);
-    y += headerH + 14;
-
-    // ── overview ──
-    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(100,80,20);
-    doc.text('OVERVIEW', M, y); y += 14;
-    writeText(c.concept, M, y, cw, LH, [60,60,80], 'normal', 10);
-    y += 6;
-
-    // ── divider ──
-    need(20);
-    doc.setFillColor(201,168,76); doc.rect(M, y, cw, 1.5, 'F'); y += 14;
-
-    // ── script header ──
-    need(20);
-    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(100,80,20);
-    doc.text('TELEPROMPTER SCRIPT', M, y);
-    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(150,150,160);
-    doc.text(wc(c.script) + ' words  ·  ' + dur(c.script), pw-M, y, {align:'right'});
-    y += 16;
-
-    // ── script body — line by line with page breaks ──
-    doc.setFontSize(10);
-    const scriptLines = doc.splitTextToSize(c.script||'', cw);
-    for (const line of scriptLines) {
-      need(LH);
-      const isStageDir = /^\s*\[/.test(line);
-      if (isStageDir) {
-        doc.setTextColor(140,100,20);
-        doc.setFont('helvetica','italic');
-      } else {
-        doc.setTextColor(30,30,50);
-        doc.setFont('helvetica','normal');
-      }
-      doc.text(line, M, y);
-      y += LH;
-    }
-  });
-
-  doc.save('Schreier-' + (globalBrand.brand_name||'Concepts').replace(/\s+/g,'-') + '-' + new Date().toISOString().slice(0,10) + '.pdf');
-}
 </script>
 </body>
 </html>
