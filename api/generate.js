@@ -32,7 +32,7 @@ export default async function handler(req, res) {
 
     try {
       const result = await resend.emails.send({
-        from: "Schreier Group <onboarding@resend.dev>",
+       from: "onboarding@resend.dev",
         to: ["TSchreier606@gmail.com"],
         subject: `[New Submission] ${brand.brand_name} — ${brand.submitter_name}`,
         text: buildEmailMessage(brand, withScripts),
