@@ -568,73 +568,126 @@ function downloadPDF() {
   const doc = new jsPDF({ unit: 'pt', format: 'letter' });
   const pw = doc.internal.pageSize.getWidth();
   const ph = doc.internal.pageSize.getHeight();
-  const M = 56, cw = pw - M*2;
+  const M = 50;          // margin
+  const cw = pw - M*2;   // content width
+  const LH = 16;         // line height
+  const BOTTOM = ph - 60; // bottom boundary
   let y = 0;
 
+  // ── draw page header (navy bar + gold line) ──
   function pageHeader() {
-    doc.setFillColor(13,27,46); doc.rect(0,0,pw,38,'F');
-    doc.setFillColor(201,168,76); doc.rect(0,38,pw,3,'F');
+    doc.setFillColor(13,27,46); doc.rect(0,0,pw,42,'F');
+    doc.setFillColor(201,168,76); doc.rect(0,42,pw,3,'F');
     doc.setTextColor(255,255,255); doc.setFontSize(11); doc.setFont('helvetica','bold');
-    doc.text('SCHREIER GROUP', M, 25);
-    doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(160,176,192);
-    doc.text('Sales · Marketing · HR Consulting', M, 34);
-    doc.text('schreiergroup.com', pw-M, 25, {align:'right'});
+    doc.text('SCHREIER GROUP', M, 27);
+    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(160,176,192);
+    doc.text('Sales · Marketing · HR Consulting', M, 37);
+    doc.text('schreiergroup.com', pw - M, 27, {align:'right'});
   }
-  function checkY(n) { if (y+n > ph-M) { doc.addPage(); y=M; pageHeader(); } }
 
-  // Cover
+  // ── ensure there is room; add new page if not ──
+  function need(h) {
+    if (y + h > BOTTOM) {
+      doc.addPage();
+      y = 60;
+      pageHeader();
+    }
+  }
+
+  // ── write wrapped text, returns new y ──
+  function writeText(text, x, startY, maxW, lineH, color, fontStyle, fontSize) {
+    doc.setFontSize(fontSize || 10);
+    doc.setFont('helvetica', fontStyle || 'normal');
+    doc.setTextColor(...(color || [40,40,60]));
+    const lines = doc.splitTextToSize(String(text || ''), maxW);
+    for (const line of lines) {
+      need(lineH);
+      doc.text(line, x, y);
+      y += lineH;
+    }
+    return y;
+  }
+
+  // ── COVER PAGE ──────────────────────────────────────────────
   doc.setFillColor(13,27,46); doc.rect(0,0,pw,ph,'F');
   doc.setFillColor(201,168,76); doc.rect(0,ph/2-2,pw,4,'F');
   doc.setTextColor(201,168,76); doc.setFontSize(10); doc.setFont('helvetica','bold');
-  doc.text('SCHREIER GROUP — CONTENT STRATEGY', pw/2, ph/2-120, {align:'center'});
-  doc.setTextColor(255,255,255); doc.setFontSize(28); doc.setFont('helvetica','normal');
-  doc.text('Social Media', pw/2, ph/2-50, {align:'center'});
+  doc.text('SCHREIER GROUP — CONTENT STRATEGY', pw/2, ph/2-130, {align:'center'});
+  doc.setTextColor(255,255,255); doc.setFontSize(30); doc.setFont('helvetica','normal');
+  doc.text('Social Media', pw/2, ph/2-55, {align:'center'});
   doc.setFont('helvetica','italic');
-  doc.text('Concept Generator', pw/2, ph/2-18, {align:'center'});
-  doc.setFont('helvetica','normal'); doc.setFontSize(14); doc.setTextColor(201,168,76);
-  doc.text(globalBrand.brand_name||'Your Brand', pw/2, ph/2+40, {align:'center'});
-  doc.setFontSize(9); doc.setTextColor(160,176,192);
-  doc.text(new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}), pw/2, ph/2+60, {align:'center'});
-  doc.text('30 Concepts · 30 Full Scripts', pw/2, ph/2+76, {align:'center'});
+  doc.text('Concept Generator', pw/2, ph/2-20, {align:'center'});
+  doc.setFont('helvetica','normal'); doc.setFontSize(15); doc.setTextColor(201,168,76);
+  doc.text(globalBrand.brand_name||'Your Brand', pw/2, ph/2+45, {align:'center'});
+  doc.setFontSize(10); doc.setTextColor(160,176,192);
+  doc.text(new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}), pw/2, ph/2+65, {align:'center'});
+  doc.text('30 Video Concepts  ·  30 Full Teleprompter Scripts', pw/2, ph/2+82, {align:'center'});
   if (globalBrand.submitter_name) {
-    doc.text(`Prepared for: ${globalBrand.submitter_name}`, pw/2, ph-60, {align:'center'});
+    doc.setFontSize(10);
+    doc.text('Prepared for: ' + globalBrand.submitter_name, pw/2, ph-70, {align:'center'});
+    doc.text(globalBrand.submitter_email||'', pw/2, ph-54, {align:'center'});
   }
 
+  // ── CONCEPT PAGES ───────────────────────────────────────────
   globalConcepts.forEach(c => {
-    doc.addPage(); pageHeader(); y = 60;
-    // Header band
-    doc.setFillColor(245,240,232); doc.rect(M,y,cw,54,'F');
-    doc.setDrawColor(201,168,76); doc.setLineWidth(2); doc.line(M,y,M,y+54);
-    doc.setTextColor(201,168,76); doc.setFontSize(7.5); doc.setFont('helvetica','bold');
-    doc.text(`CONCEPT ${c.number}  ·  ${(c.type||'').toUpperCase()}  ·  ${(c.platform||'').toUpperCase()}`, M+10, y+16);
-    doc.setTextColor(13,27,46); doc.setFontSize(13); doc.setFont('helvetica','bold');
-    const hookLines = doc.splitTextToSize(c.hook||'', cw-20);
-    doc.text(hookLines, M+10, y+32); y+=58;
-    // Overview
-    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(13,27,46);
-    doc.text('OVERVIEW', M, y+14); y+=18;
-    doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(50,50,70);
-    const cl = doc.splitTextToSize(c.concept||'', cw);
-    doc.text(cl, M, y); y += cl.length*14+14;
-    // Script divider
-    doc.setFillColor(201,168,76); doc.rect(M,y,cw,1.5,'F'); y+=10;
-    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(13,27,46);
-    doc.text('TELEPROMPTER SCRIPT', M, y+12);
-    doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(130,130,150);
-    doc.text(`${wc(c.script)} words · ${dur(c.script)}`, pw-M, y+12, {align:'right'}); y+=22;
-    // Script body
-    const sl = doc.splitTextToSize(c.script||'', cw);
-    doc.setFontSize(9.5);
-    for (const line of sl) {
-      checkY(14);
-      const isDir = line.trim().startsWith('[') || /\[.*\]/.test(line);
-      doc.setTextColor(isDir ? 120 : 30, isDir ? 90 : 30, isDir ? 20 : 50);
-      doc.setFont('helvetica', isDir ? 'italic' : 'normal');
-      doc.text(line, M, y); y+=14;
+    doc.addPage();
+    pageHeader();
+    y = 58;
+
+    // ── concept header band ──
+    const headerH = 58;
+    doc.setFillColor(245,240,232); doc.rect(M, y, cw, headerH, 'F');
+    doc.setDrawColor(201,168,76); doc.setLineWidth(2.5); doc.line(M, y, M, y+headerH);
+
+    doc.setTextColor(201,168,76); doc.setFontSize(8); doc.setFont('helvetica','bold');
+    doc.text(
+      'CONCEPT ' + c.number + '   ·   ' + (c.type||'').toUpperCase() + '   ·   ' + (c.platform||'').toUpperCase(),
+      M+12, y+18
+    );
+    doc.setTextColor(13,27,46); doc.setFontSize(12); doc.setFont('helvetica','bold');
+    const hookWrapped = doc.splitTextToSize(c.hook||'', cw-24);
+    // fit hook into band — just first line if too long
+    doc.text(hookWrapped[0]||'', M+12, y+38);
+    if (hookWrapped[1]) doc.text(hookWrapped[1], M+12, y+52);
+    y += headerH + 14;
+
+    // ── overview ──
+    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(100,80,20);
+    doc.text('OVERVIEW', M, y); y += 14;
+    writeText(c.concept, M, y, cw, LH, [60,60,80], 'normal', 10);
+    y += 6;
+
+    // ── divider ──
+    need(20);
+    doc.setFillColor(201,168,76); doc.rect(M, y, cw, 1.5, 'F'); y += 14;
+
+    // ── script header ──
+    need(20);
+    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(100,80,20);
+    doc.text('TELEPROMPTER SCRIPT', M, y);
+    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(150,150,160);
+    doc.text(wc(c.script) + ' words  ·  ' + dur(c.script), pw-M, y, {align:'right'});
+    y += 16;
+
+    // ── script body — line by line with page breaks ──
+    doc.setFontSize(10);
+    const scriptLines = doc.splitTextToSize(c.script||'', cw);
+    for (const line of scriptLines) {
+      need(LH);
+      const isStageDir = /^\s*\[/.test(line);
+      if (isStageDir) {
+        doc.setTextColor(140,100,20);
+        doc.setFont('helvetica','italic');
+      } else {
+        doc.setTextColor(30,30,50);
+        doc.setFont('helvetica','normal');
+      }
+      doc.text(line, M, y);
+      y += LH;
     }
   });
 
-  doc.save(`Schreier-${(globalBrand.brand_name||'Concepts').replace(/\s+/g,'-')}-${new Date().toISOString().slice(0,10)}.pdf`);
+  doc.save('Schreier-' + (globalBrand.brand_name||'Concepts').replace(/\s+/g,'-') + '-' + new Date().toISOString().slice(0,10) + '.pdf');
 }
 </script>
 </body>
