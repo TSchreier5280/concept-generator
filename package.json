@@ -1,0 +1,9 @@
+{
+  "name": "schreier-concept-generator",
+  "version": "1.0.0",
+  "description": "Schreier Group Social Media Concept Generator",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.20.0",
+    "resend": "^3.2.0"
+  }
+}

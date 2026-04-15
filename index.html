@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Concept Generator — Schreier Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root {
+  --navy:  #0d1b2e;
+  --navy2: #162540;
+  --navy3: #1f3258;
+  --gold:  #c9a84c;
+  --gold2: #e8c96a;
+  --cream: #f5f0e8;
+  --text:  #1a1a2e;
+  --muted: #6b7280;
+  --border:#ddd4c0;
+  --white: #ffffff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--cream); color: var(--text); font-family: 'Inter', sans-serif; font-weight: 300; min-height: 100vh; }
+
+/* TOPBAR */
+.topbar {
+  background: var(--navy);
+  padding: 0 2rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid var(--gold);
+  position: sticky; top: 0; z-index: 100;
+}
+.logo-area { display: flex; align-items: center; gap: 0.75rem; }
+.logo-mark {
+  width: 36px; height: 36px;
+  background: var(--gold);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 600; color: var(--navy);
+}
+.logo-text .company { color: #fff; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.04em; }
+.logo-text .tagline { color: #6b7a90; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* HERO */
+.hero {
+  background: var(--navy); color: var(--white);
+  padding: 3.5rem 2rem 3rem; text-align: center;
+}
+.eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.9rem; }
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; line-height: 1.15; margin-bottom: 1rem; }
+.hero h1 em { font-style: italic; color: var(--gold2); }
+.hero p { color: #a0b0c0; font-size: 0.93rem; max-width: 540px; margin: 0 auto; line-height: 1.75; }
+
+/* FORM */
+.form-wrap { max-width: 700px; margin: 2.5rem auto 4rem; padding: 0 1.5rem; }
+
+.section-header { display: flex; align-items: center; gap: 0.75rem; margin: 2.5rem 0 1.4rem; }
+.section-num {
+  width: 26px; height: 26px; background: var(--navy); color: var(--gold);
+  border-radius: 50%; font-size: 0.72rem; font-weight: 600;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--navy); }
+
+.field { margin-bottom: 1.3rem; }
+label.field-label { display: block; font-size: 0.78rem; font-weight: 500; color: var(--navy); margin-bottom: 0.3rem; letter-spacing: 0.02em; }
+label.field-label .req { color: var(--gold); }
+.field-hint { font-size: 0.73rem; color: var(--muted); margin-bottom: 0.4rem; line-height: 1.6; }
+
+input[type="text"], input[type="email"], textarea {
+  width: 100%; background: var(--white); border: 1px solid var(--border);
+  color: var(--text); font-family: 'Inter', sans-serif;
+  font-size: 0.87rem; font-weight: 300;
+  padding: 0.62rem 0.88rem; border-radius: 4px; outline: none;
+  transition: border-color 0.2s; resize: vertical;
+}
+input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.1); }
+textarea { min-height: 85px; }
+
+.options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr)); gap: 0.45rem; }
+.option-item {
+  display: flex; align-items: center; gap: 0.5rem;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 4px; padding: 0.5rem 0.7rem;
+  cursor: pointer; font-size: 0.81rem; user-select: none; transition: all 0.15s;
+}
+.option-item:hover { border-color: var(--gold); background: #fdf8ed; }
+.option-item input { accent-color: var(--gold); width: 13px; height: 13px; }
+.option-item.selected { border-color: var(--gold); background: #fdf5dc; }
+
+/* Submitter info box */
+.submitter-box {
+  background: var(--white);
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 1.5rem;
+}
+.submitter-box h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.75rem;
+}
+.submitter-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+/* SUBMIT AREA */
+.submit-area {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 8px; padding: 1.5rem; margin-top: 2rem;
+}
+.submit-area h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.4rem; }
+.submit-area .sub-note { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.2rem; }
+
+#submit-btn {
+  display: block; width: 100%;
+  background: var(--navy); color: var(--white);
+  border: none; font-family: 'Inter', sans-serif;
+  font-size: 0.93rem; font-weight: 500;
+  padding: 0.9rem; border-radius: 4px;
+  cursor: pointer; transition: background 0.2s, transform 0.1s; letter-spacing: 0.03em;
+}
+#submit-btn:hover:not(:disabled) { background: var(--navy3); transform: translateY(-1px); }
+#submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* PROGRESS */
+.progress-wrap { display: none; margin-top: 1rem; }
+.progress-bar { width: 100%; height: 4px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--navy), var(--gold)); border-radius: 999px; transition: width 0.5s ease; width: 0%; }
+.progress-label { font-size: 0.76rem; color: var(--muted); margin-top: 0.4rem; text-align: center; }
+#status { margin-top: 0.8rem; font-size: 0.82rem; color: var(--muted); text-align: center; min-height: 1.2rem; }
+
+/* RESULTS */
+#results { max-width: 700px; margin: 0 auto 4rem; padding: 0 1.5rem; display: none; }
+.results-topbar {
+  background: var(--navy); color: var(--white);
+  border-radius: 8px 8px 0 0; padding: 1.1rem 1.4rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+}
+.results-topbar h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 400; }
+.results-topbar .sub { font-size: 0.75rem; color: #a0b0c0; }
+.results-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.action-btn {
+  background: transparent; border: 1px solid rgba(201,168,76,0.45); color: var(--gold);
+  font-family: 'Inter', sans-serif; font-size: 0.73rem;
+  padding: 0.38rem 0.85rem; border-radius: 4px; cursor: pointer; transition: all 0.2s;
+}
+.action-btn:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); }
+.action-btn.primary { background: var(--gold); color: var(--navy); font-weight: 600; border-color: var(--gold); }
+.action-btn.primary:hover { background: var(--gold2); }
+
+#concepts-container { border: 1px solid var(--border); border-top: none; border-radius: 0 0 8px 8px; overflow: hidden; }
+
+.concept-card {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 1.2rem 1.4rem; cursor: pointer; transition: background 0.15s;
+}
+.concept-card:last-child { border-bottom: none; }
+.concept-card:hover { background: #fdf8f0; }
+.concept-card.expanded { background: #fdf5e0; }
+
+.concept-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.4rem; }
+.concept-meta { display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+.concept-num { font-size: 0.67rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.concept-type { font-size: 0.67rem; background: #eee; color: #555; padding: 0.13rem 0.45rem; border-radius: 3px; }
+.concept-platform { font-size: 0.67rem; background: #dbeafe; color: #1d4ed8; padding: 0.13rem 0.45rem; border-radius: 3px; }
+.expand-icon { font-size: 0.72rem; color: var(--gold); flex-shrink: 0; transition: transform 0.2s; }
+.concept-card.expanded .expand-icon { transform: rotate(90deg); }
+
+.concept-hook { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; color: var(--navy); line-height: 1.4; margin-bottom: 0.35rem; }
+.concept-body { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+.script-section { display: none; margin-top: 1.1rem; border-top: 1px solid var(--border); padding-top: 1.1rem; }
+.concept-card.expanded .script-section { display: block; }
+.script-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 0.55rem; }
+.script-text {
+  font-size: 0.87rem; line-height: 1.9; color: var(--text);
+  white-space: pre-wrap; background: #f9f5ed;
+  border: 1px solid #e8d9b5; border-radius: 4px;
+  padding: 0.9rem 1.1rem; font-family: 'Georgia', serif;
+}
+.script-duration { font-size: 0.72rem; color: var(--muted); margin-top: 0.4rem; }
+
+/* SPINNER */
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  display: inline-block; width: 13px; height: 13px;
+  border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff;
+  border-radius: 50%; animation: spin 0.7s linear infinite;
+  vertical-align: middle; margin-right: 6px;
+}
+
+/* FOOTER */
+footer {
+  background: var(--navy); color: #6b7a90;
+  text-align: center; padding: 1.5rem;
+  font-size: 0.76rem; letter-spacing: 0.04em;
+}
+footer a { color: var(--gold); text-decoration: none; }
+
+/* THANK YOU BANNER */
+#thankyou-banner {
+  display: none;
+  background: #d1fae5; border: 1px solid #6ee7b7;
+  border-radius: 6px; padding: 0.8rem 1.2rem;
+  font-size: 0.83rem; color: #065f46;
+  margin-top: 1rem; text-align: center;
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo-area">
+    <div class="logo-mark">SG</div>
+    <div class="logo-text">
+      <div class="company">Schreier Group</div>
+      <div class="tagline">Sales · Marketing · HR Consulting</div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Complimentary Strategy Tool</div>
+  <h1>Social Media<br><em>Concept Generator</em></h1>
+  <p>Tell us about your brand and we'll instantly generate 30 platform-native video concepts — each with a full teleprompter-ready script — in about 90 seconds.</p>
+</div>
+
+<div class="form-wrap">
+
+  <!-- WHO IS FILLING THIS OUT -->
+  <div class="submitter-box">
+    <h4>First, a little about you</h4>
+    <div class="submitter-row">
+      <div class="field" style="margin-bottom:0;">
+        <label class="field-label">Your Name <span class="req">*</span></label>
+        <input type="text" id="submitter_name" placeholder="Jane Smith">
+      </div>
+      <div class="field" style="margin-bottom:0;">
+        <label class="field-label">Your Email <span class="req">*</span></label>
+        <input type="email" id="submitter_email" placeholder="jane@yourbrand.com">
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section-header"><div class="section-num">1</div><div class="section-title">Brand Basics</div></div>
+
+  <div class="field">
+    <label class="field-label">Brand / Company Name <span class="req">*</span></label>
+    <input type="text" id="brand_name" placeholder="Your brand name">
+  </div>
+  <div class="field">
+    <label class="field-label">Website URL <span class="req">*</span></label>
+    <input type="text" id="website" placeholder="https://yourbrand.com">
+  </div>
+  <div class="field">
+    <label class="field-label">Describe your niche / industry <span class="req">*</span></label>
+    <div class="field-hint">Be specific — not just "fitness," more like "functional fitness for women 30–50 who are intimidated by traditional gyms."</div>
+    <textarea id="niche"></textarea>
+  </div>
+  <div class="field">
+    <label class="field-label">What makes you different from competitors? <span class="req">*</span></label>
+    <div class="field-hint">Your unique angle, positioning, or story.</div>
+    <textarea id="differentiator"></textarea>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section-header"><div class="section-num">2</div><div class="section-title">Social Presence</div></div>
+
+  <div class="field"><label class="field-label">Instagram handle</label><input type="text" id="instagram" placeholder="@yourbrand"></div>
+  <div class="field"><label class="field-label">TikTok handle</label><input type="text" id="tiktok" placeholder="@yourbrand"></div>
+  <div class="field"><label class="field-label">YouTube handle</label><input type="text" id="youtube" placeholder="@yourbrand or channel URL"></div>
+  <div class="field"><label class="field-label">LinkedIn page</label><input type="text" id="linkedin" placeholder="@yourbrand or company page URL"></div>
+
+  <div class="field">
+    <label class="field-label">How often are you currently posting? <span class="req">*</span></label>
+    <div class="options-grid">
+      <label class="option-item"><input type="radio" name="posting_freq" value="Daily"> Daily</label>
+      <label class="option-item"><input type="radio" name="posting_freq" value="A few times a week"> A few times a week</label>
+      <label class="option-item"><input type="radio" name="posting_freq" value="Weekly"> Weekly</label>
+      <label class="option-item"><input type="radio" name="posting_freq" value="A few times a month"> A few times a month</label>
+      <label class="option-item"><input type="radio" name="posting_freq" value="Rarely"> Rarely</label>
+      <label class="option-item"><input type="radio" name="posting_freq" value="Not posting yet"> Not posting yet</label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Approximate total follower count <span class="req">*</span></label>
+    <div class="options-grid">
+      <label class="option-item"><input type="radio" name="followers" value="Under 1,000"> Under 1,000</label>
+      <label class="option-item"><input type="radio" name="followers" value="1,000–5,000"> 1,000–5,000</label>
+      <label class="option-item"><input type="radio" name="followers" value="5,000–25,000"> 5,000–25,000</label>
+      <label class="option-item"><input type="radio" name="followers" value="25,000–100,000"> 25,000–100,000</label>
+      <label class="option-item"><input type="radio" name="followers" value="100,000+"> 100,000+</label>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section-header"><div class="section-num">3</div><div class="section-title">Your Customer</div></div>
+
+  <div class="field">
+    <label class="field-label">Describe your ideal customer <span class="req">*</span></label>
+    <div class="field-hint">Demographics + psychographics — values, lifestyle, what they care about.</div>
+    <textarea id="ideal_customer"></textarea>
+  </div>
+  <div class="field">
+    <label class="field-label">Top 3 problems your customers face <span class="req">*</span></label>
+    <div class="field-hint">Be specific about their frustrations.</div>
+    <textarea id="customer_problems"></textarea>
+  </div>
+  <div class="field">
+    <label class="field-label">How do customers describe their problems in their own words?</label>
+    <div class="field-hint">Exact phrases they'd type into Google or say to a friend.</div>
+    <textarea id="customer_voice"></textarea>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section-header"><div class="section-num">4</div><div class="section-title">Competitive Landscape</div></div>
+
+  <div class="field">
+    <label class="field-label">Top 2–3 competitors <span class="req">*</span></label>
+    <textarea id="competitors" rows="2"></textarea>
+  </div>
+  <div class="field">
+    <label class="field-label">What content do you see competitors doing well?</label>
+    <textarea id="competitor_good" rows="2"></textarea>
+  </div>
+  <div class="field">
+    <label class="field-label">What content gaps exist in your space?</label>
+    <textarea id="content_gaps" rows="2"></textarea>
+  </div>
+
+  <!-- SECTION 5 -->
+  <div class="section-header"><div class="section-num">5</div><div class="section-title">Brand Identity</div></div>
+
+  <div class="field"><label class="field-label">Brand primary color (hex code)</label><input type="text" id="brand_color" placeholder="#E8638B"></div>
+  <div class="field"><label class="field-label">3–5 words describing your brand personality</label><input type="text" id="brand_personality" placeholder="Bold, approachable, no-BS, warm, expert"></div>
+  <div class="field"><label class="field-label">Topics or angles to AVOID</label><textarea id="avoid" rows="2"></textarea></div>
+  <div class="field">
+    <label class="field-label">Links to existing content that nails your voice</label>
+    <div class="field-hint">2–3 links to posts, videos, or articles.</div>
+    <textarea id="existing_content" rows="2"></textarea>
+  </div>
+
+  <!-- SECTION 6 -->
+  <div class="section-header"><div class="section-num">6</div><div class="section-title">Content Strategy</div></div>
+
+  <div class="field">
+    <label class="field-label">Primary goal for social content <span class="req">*</span></label>
+    <div class="options-grid">
+      <label class="option-item"><input type="radio" name="content_goal" value="Brand awareness"> Brand awareness</label>
+      <label class="option-item"><input type="radio" name="content_goal" value="Lead generation"> Lead generation</label>
+      <label class="option-item"><input type="radio" name="content_goal" value="Community building"> Community building</label>
+      <label class="option-item"><input type="radio" name="content_goal" value="Direct sales"> Direct sales</label>
+      <label class="option-item"><input type="radio" name="content_goal" value="All of the above"> All of the above</label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Platforms to focus on <span class="req">*</span></label>
+    <div class="options-grid">
+      <label class="option-item"><input type="checkbox" name="platforms" value="TikTok"> TikTok</label>
+      <label class="option-item"><input type="checkbox" name="platforms" value="Instagram Reels"> Instagram Reels</label>
+      <label class="option-item"><input type="checkbox" name="platforms" value="YouTube Shorts"> YouTube Shorts</label>
+      <label class="option-item"><input type="checkbox" name="platforms" value="LinkedIn"> LinkedIn</label>
+      <label class="option-item"><input type="checkbox" name="platforms" value="Facebook"> Facebook</label>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="field-label">Upcoming launches, events, or seasonal moments in the next 3 months?</label>
+    <textarea id="upcoming" rows="2"></textarea>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-area">
+    <h3>Ready to generate your concepts?</h3>
+    <p class="sub-note">This generates 30 video concepts + full teleprompter scripts in ~90 seconds. Results appear below and are also emailed to the Schreier Group team. You can download your results as a PDF when done.</p>
+    <button id="submit-btn" onclick="submitForm()">Generate My 30 Concepts + Scripts →</button>
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-label" id="progress-label">Starting…</div>
+    </div>
+    <p id="status"></p>
+    <div id="thankyou-banner">✓ Your results are below — and a full copy has been sent to the Schreier Group team!</div>
+  </div>
+
+</div><!-- /form-wrap -->
+
+<!-- RESULTS -->
+<div id="results">
+  <div class="results-topbar">
+    <div>
+      <h2 id="results-title">Your 30 Concepts &amp; Scripts</h2>
+      <div class="sub">Click any concept to read its full teleprompter script</div>
+    </div>
+    <div class="results-actions">
+      <button class="action-btn" onclick="copyAll()">Copy All</button>
+      <button class="action-btn primary" onclick="downloadPDF()">⬇ Download PDF</button>
+    </div>
+  </div>
+  <div id="concepts-container"></div>
+</div>
+
+<footer>
+  <strong>Schreier Group LLC</strong> &nbsp;·&nbsp; Sales, Marketing &amp; HR Consulting &nbsp;·&nbsp;
+  <a href="https://schreiergroup.com" target="_blank">schreiergroup.com</a>
+</footer>
+
+<script>
+// ── Option highlight ──────────────────────────────────────────
+document.querySelectorAll('.option-item').forEach(item => {
+  item.querySelector('input').addEventListener('change', function() {
+    if (this.type === 'radio')
+      document.querySelectorAll(`input[name="${this.name}"]`).forEach(r =>
+        r.closest('.option-item').classList.remove('selected'));
+    item.classList.toggle('selected', this.checked);
+  });
+});
+
+// ── Helpers ───────────────────────────────────────────────────
+const G = id => (document.getElementById(id)?.value || '').trim();
+const Radio = n => { const e = document.querySelector(`input[name="${n}"]:checked`); return e ? e.value : ''; };
+const Checks = n => [...document.querySelectorAll(`input[name="${n}"]:checked`)].map(e => e.value).join(', ');
+function setProgress(pct, label) {
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = label;
+}
+
+let globalConcepts = [];
+let globalBrand    = {};
+
+// ── Submit ────────────────────────────────────────────────────
+async function submitForm() {
+  // Validate
+  if (!G('submitter_name')) { alert('Please enter your name.'); return; }
+  if (!G('submitter_email')) { alert('Please enter your email.'); return; }
+  const required = ['brand_name','website','niche','differentiator','ideal_customer','customer_problems','competitors'];
+  for (const id of required) {
+    if (!G(id)) { alert(`Please fill in the "${id.replace(/_/g,' ')}" field.`); return; }
+  }
+  if (!Radio('posting_freq')) { alert('Please select posting frequency.'); return; }
+  if (!Radio('followers'))    { alert('Please select follower count.'); return; }
+  if (!Radio('content_goal')) { alert('Please select your primary content goal.'); return; }
+  if (!Checks('platforms'))   { alert('Please select at least one platform.'); return; }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Generating…';
+  document.getElementById('progress-wrap').style.display = 'block';
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('thankyou-banner').style.display = 'none';
+  setProgress(5, 'Sending to server…');
+
+  globalBrand = {
+    submitter_name: G('submitter_name'), submitter_email: G('submitter_email'),
+    brand_name: G('brand_name'), website: G('website'), niche: G('niche'),
+    differentiator: G('differentiator'), instagram: G('instagram'),
+    tiktok: G('tiktok'), youtube: G('youtube'), linkedin: G('linkedin'),
+    posting_freq: Radio('posting_freq'), followers: Radio('followers'),
+    ideal_customer: G('ideal_customer'), customer_problems: G('customer_problems'),
+    customer_voice: G('customer_voice'), competitors: G('competitors'),
+    competitor_good: G('competitor_good'), content_gaps: G('content_gaps'),
+    brand_color: G('brand_color'), brand_personality: G('brand_personality'),
+    avoid: G('avoid'), existing_content: G('existing_content'),
+    content_goal: Radio('content_goal'), platforms: Checks('platforms'),
+    upcoming: G('upcoming'),
+  };
+
+  // Animate progress while waiting (server does all the work)
+  const stages = [
+    [15, 'Analyzing your brand brief…'],
+    [30, 'Generating 30 concepts…'],
+    [55, 'Writing teleprompter scripts (this takes ~60s)…'],
+    [80, 'Almost done — finishing scripts…'],
+  ];
+  let stageIdx = 0;
+  const progressTimer = setInterval(() => {
+    if (stageIdx < stages.length) {
+      setProgress(...stages[stageIdx]);
+      stageIdx++;
+    }
+  }, 18000);
+
+  try {
+    const res = await fetch('/api/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(globalBrand),
+    });
+    clearInterval(progressTimer);
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error || `Server error ${res.status}`);
+    }
+    const data = await res.json();
+    globalConcepts = data.concepts;
+    setProgress(100, 'Done!');
+    renderResults(globalConcepts);
+    document.getElementById('results-title').textContent = `${globalBrand.brand_name} — 30 Concepts & Scripts`;
+    document.getElementById('thankyou-banner').style.display = 'block';
+    document.getElementById('status').textContent = '';
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (err) {
+    clearInterval(progressTimer);
+    document.getElementById('status').textContent = '⚠ ' + err.message;
+    setProgress(0, '');
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = 'Generate My 30 Concepts + Scripts →';
+  document.getElementById('progress-wrap').style.display = 'none';
+}
+
+// ── Render ────────────────────────────────────────────────────
+function renderResults(concepts) {
+  const container = document.getElementById('concepts-container');
+  container.innerHTML = '';
+  concepts.forEach(c => {
+    const card = document.createElement('div');
+    card.className = 'concept-card';
+    card.innerHTML = `
+      <div class="concept-header">
+        <div class="concept-meta">
+          <span class="concept-num">Concept ${c.number}</span>
+          <span class="concept-type">${esc(c.type||'')}</span>
+          <span class="concept-platform">${esc(c.platform||'')}</span>
+        </div>
+        <span class="expand-icon">▶</span>
+      </div>
+      <div class="concept-hook">${esc(c.hook)}</div>
+      <div class="concept-body">${esc(c.concept)}</div>
+      <div class="script-section">
+        <div class="script-label">📄 Teleprompter Script</div>
+        <div class="script-text">${esc(c.script||'')}</div>
+        <div class="script-duration">Approx. ${dur(c.script)} · ${wc(c.script)} words</div>
+      </div>`;
+    card.addEventListener('click', () => card.classList.toggle('expanded'));
+    container.appendChild(card);
+  });
+  document.getElementById('results').style.display = 'block';
+}
+
+function wc(t) { return t ? t.split(/\s+/).filter(w=>w).length : 0; }
+function dur(t) { const s=Math.round(wc(t)/130*60); return s<60?`~${s}s`:`~${Math.floor(s/60)}m ${s%60}s`; }
+function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'); }
+
+// ── Copy all ──────────────────────────────────────────────────
+function copyAll() {
+  const text = globalConcepts.map(c =>
+    `═══ CONCEPT ${c.number}: ${c.type} | ${c.platform} ═══\nHOOK: ${c.hook}\n\nOVERVIEW:\n${c.concept}\n\nSCRIPT:\n${c.script||''}`
+  ).join('\n\n────────────────────────────────\n\n');
+  navigator.clipboard.writeText(text).then(() => {
+    const b = document.querySelector('.action-btn');
+    b.textContent = '✓ Copied!';
+    setTimeout(() => b.textContent = 'Copy All', 2500);
+  });
+}
+
+// ── PDF ───────────────────────────────────────────────────────
+function downloadPDF() {
+  if (!globalConcepts.length) return;
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+  const pw = doc.internal.pageSize.getWidth();
+  const ph = doc.internal.pageSize.getHeight();
+  const M = 56, cw = pw - M*2;
+  let y = 0;
+
+  function pageHeader() {
+    doc.setFillColor(13,27,46); doc.rect(0,0,pw,38,'F');
+    doc.setFillColor(201,168,76); doc.rect(0,38,pw,3,'F');
+    doc.setTextColor(255,255,255); doc.setFontSize(11); doc.setFont('helvetica','bold');
+    doc.text('SCHREIER GROUP', M, 25);
+    doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(160,176,192);
+    doc.text('Sales · Marketing · HR Consulting', M, 34);
+    doc.text('schreiergroup.com', pw-M, 25, {align:'right'});
+  }
+  function checkY(n) { if (y+n > ph-M) { doc.addPage(); y=M; pageHeader(); } }
+
+  // Cover
+  doc.setFillColor(13,27,46); doc.rect(0,0,pw,ph,'F');
+  doc.setFillColor(201,168,76); doc.rect(0,ph/2-2,pw,4,'F');
+  doc.setTextColor(201,168,76); doc.setFontSize(10); doc.setFont('helvetica','bold');
+  doc.text('SCHREIER GROUP — CONTENT STRATEGY', pw/2, ph/2-120, {align:'center'});
+  doc.setTextColor(255,255,255); doc.setFontSize(28); doc.setFont('helvetica','normal');
+  doc.text('Social Media', pw/2, ph/2-50, {align:'center'});
+  doc.setFont('helvetica','italic');
+  doc.text('Concept Generator', pw/2, ph/2-18, {align:'center'});
+  doc.setFont('helvetica','normal'); doc.setFontSize(14); doc.setTextColor(201,168,76);
+  doc.text(globalBrand.brand_name||'Your Brand', pw/2, ph/2+40, {align:'center'});
+  doc.setFontSize(9); doc.setTextColor(160,176,192);
+  doc.text(new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'}), pw/2, ph/2+60, {align:'center'});
+  doc.text('30 Concepts · 30 Full Scripts', pw/2, ph/2+76, {align:'center'});
+  if (globalBrand.submitter_name) {
+    doc.text(`Prepared for: ${globalBrand.submitter_name}`, pw/2, ph-60, {align:'center'});
+  }
+
+  globalConcepts.forEach(c => {
+    doc.addPage(); pageHeader(); y = 60;
+    // Header band
+    doc.setFillColor(245,240,232); doc.rect(M,y,cw,54,'F');
+    doc.setDrawColor(201,168,76); doc.setLineWidth(2); doc.line(M,y,M,y+54);
+    doc.setTextColor(201,168,76); doc.setFontSize(7.5); doc.setFont('helvetica','bold');
+    doc.text(`CONCEPT ${c.number}  ·  ${(c.type||'').toUpperCase()}  ·  ${(c.platform||'').toUpperCase()}`, M+10, y+16);
+    doc.setTextColor(13,27,46); doc.setFontSize(13); doc.setFont('helvetica','bold');
+    const hookLines = doc.splitTextToSize(c.hook||'', cw-20);
+    doc.text(hookLines, M+10, y+32); y+=58;
+    // Overview
+    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(13,27,46);
+    doc.text('OVERVIEW', M, y+14); y+=18;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(50,50,70);
+    const cl = doc.splitTextToSize(c.concept||'', cw);
+    doc.text(cl, M, y); y += cl.length*14+14;
+    // Script divider
+    doc.setFillColor(201,168,76); doc.rect(M,y,cw,1.5,'F'); y+=10;
+    doc.setFontSize(8); doc.setFont('helvetica','bold'); doc.setTextColor(13,27,46);
+    doc.text('TELEPROMPTER SCRIPT', M, y+12);
+    doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(130,130,150);
+    doc.text(`${wc(c.script)} words · ${dur(c.script)}`, pw-M, y+12, {align:'right'}); y+=22;
+    // Script body
+    const sl = doc.splitTextToSize(c.script||'', cw);
+    doc.setFontSize(9.5);
+    for (const line of sl) {
+      checkY(14);
+      const isDir = line.trim().startsWith('[') || /\[.*\]/.test(line);
+      doc.setTextColor(isDir ? 120 : 30, isDir ? 90 : 30, isDir ? 20 : 50);
+      doc.setFont('helvetica', isDir ? 'italic' : 'normal');
+      doc.text(line, M, y); y+=14;
+    }
+  });
+
+  doc.save(`Schreier-${(globalBrand.brand_name||'Concepts').replace(/\s+/g,'-')}-${new Date().toISOString().slice(0,10)}.pdf`);
+}
+</script>
+</body>
+</html>
