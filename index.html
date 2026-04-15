@@ -379,14 +379,14 @@ footer a { color: var(--gold); text-decoration: none; }
   <!-- SUBMIT -->
   <div class="submit-area">
     <h3>Ready to generate your concepts?</h3>
-    <p class="sub-note">This generates 30 video concepts + full teleprompter scripts in ~90 seconds. Results appear below and are also emailed to the Schreier Group team. You can download your results as a PDF when done.</p>
+    <p class="sub-note">This generates 30 video concepts + full teleprompter scripts in ~90 seconds. Results will appear below for your review. The Schreier Group team will receive a full copy and follow up with your branded PDF.</p>
     <button id="submit-btn" onclick="submitForm()">Generate My 30 Concepts + Scripts →</button>
     <div class="progress-wrap" id="progress-wrap">
       <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
       <div class="progress-label" id="progress-label">Starting…</div>
     </div>
     <p id="status"></p>
-    <div id="thankyou-banner">✓ Your results are below — and a full copy has been sent to the Schreier Group team!</div>
+    <div id="thankyou-banner">✓ Your results are ready below! The Schreier Group team has been notified and will follow up with your full branded PDF shortly.</div>
   </div>
 
 </div><!-- /form-wrap -->
@@ -398,9 +398,9 @@ footer a { color: var(--gold); text-decoration: none; }
       <h2 id="results-title">Your 30 Concepts &amp; Scripts</h2>
       <div class="sub">Click any concept to read its full teleprompter script</div>
     </div>
-    <div class="results-actions">
-      <button class="action-btn" onclick="copyAll()">Copy All</button>
-      <button class="action-btn primary" onclick="downloadPDF()">⬇ Download PDF</button>
+    <div class="results-actions"><span style="font-size:0.78rem;color:#a0b0c0;font-style:italic;">The Schreier Group team will follow up with your full PDF shortly.</span>
+      
+      
     </div>
   </div>
   <div id="concepts-container"></div>
