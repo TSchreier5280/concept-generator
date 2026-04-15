@@ -1,8 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { Resend } from "resend";
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const config = { maxDuration: 300 };
 
@@ -30,9 +28,26 @@ export default async function handler(req, res) {
     const concepts = JSON.parse(conceptsRaw.replace(/```json|```/g, "").trim());
     const withScripts = await generateAllScripts(brand, concepts);
 
+    const message = buildEmailMessage(brand, withScripts);
+
     try {
-      await emailResults(brand, withScripts);
-      console.log("Email sent successfully");
+      const emailRes = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service_id: "service_wnuvkhj",
+          template_id: "template_2uq0p1p",
+          user_id: "Rs5tBkY26YeCyGfdO",
+          template_params: {
+            name: `${brand.submitter_name} — ${brand.brand_name}`,
+            email: brand.submitter_email,
+            time: new Date().toLocaleString(),
+            message: message,
+          }
+        })
+      });
+      const emailText = await emailRes.text();
+      console.log("EmailJS result:", emailRes.status, emailText);
     } catch (emailErr) {
       console.error("EMAIL FAILED:", emailErr.message);
     }
@@ -43,6 +58,30 @@ export default async function handler(req, res) {
     console.error("Generate error:", err.message);
     return res.status(500).json({ error: err.message || "Generation failed" });
   }
+}
+
+function buildEmailMessage(brand, concepts) {
+  let msg = `NEW SUBMISSION — ${new Date().toLocaleString()}\n\n`;
+  msg += `SUBMITTER: ${brand.submitter_name} | ${brand.submitter_email}\n`;
+  msg += `BRAND: ${brand.brand_name} | ${brand.website}\n`;
+  msg += `NICHE: ${brand.niche}\n`;
+  msg += `PLATFORMS: ${brand.platforms}\n`;
+  msg += `GOAL: ${brand.content_goal}\n`;
+  msg += `FOLLOWERS: ${brand.followers}\n`;
+  msg += `COMPETITORS: ${brand.competitors}\n`;
+  msg += `IDEAL CUSTOMER: ${brand.ideal_customer}\n`;
+  msg += `PROBLEMS: ${brand.customer_problems}\n\n`;
+  msg += `${"=".repeat(50)}\n\n`;
+
+  concepts.forEach((c) => {
+    msg += `CONCEPT ${c.number}: ${(c.type||"").toUpperCase()} | ${(c.platform||"").toUpperCase()}\n`;
+    msg += `HOOK: ${c.hook}\n\n`;
+    msg += `OVERVIEW:\n${c.concept}\n\n`;
+    msg += `SCRIPT:\n${c.script || ""}\n\n`;
+    msg += `${"-".repeat(40)}\n\n`;
+  });
+
+  return msg;
 }
 
 async function callClaude(system, user) {
@@ -123,59 +162,6 @@ Requirements:
 - End with a clear call to action
 - Write ONLY the script`
   );
-}
-
-async function emailResults(brand, concepts) {
-  const adminEmail = process.env.ADMIN_EMAIL;
-  if (!adminEmail) return;
-
-  const date = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-
-  let html = `<div style="font-family:Arial,sans-serif;max-width:700px;margin:0 auto;">
-  <div style="background:#0d1b2e;padding:24px 32px;border-bottom:3px solid #c9a84c;">
-    <div style="color:#c9a84c;font-size:11px;margin-bottom:6px;">SCHREIER GROUP</div>
-    <div style="color:#ffffff;font-size:22px;font-weight:bold;">New Submission: ${brand.brand_name}</div>
-    <div style="color:#a0b0c0;font-size:13px;margin-top:4px;">${brand.submitter_name} &lt;${brand.submitter_email}&gt; &nbsp;·&nbsp; ${date}</div>
-  </div>
-  <div style="background:#f5f0e8;padding:20px 32px;border-bottom:1px solid #ddd4c0;">
-    <p><strong>Brand:</strong> ${brand.brand_name} — ${brand.website}</p>
-    <p><strong>Niche:</strong> ${brand.niche}</p>
-    <p><strong>Platforms:</strong> ${brand.platforms}</p>
-    <p><strong>Goal:</strong> ${brand.content_goal}</p>
-    <p><strong>Followers:</strong> ${brand.followers}</p>
-    <p><strong>Competitors:</strong> ${brand.competitors}</p>
-    <p><strong>Ideal Customer:</strong> ${brand.ideal_customer}</p>
-    <p><strong>Problems:</strong> ${brand.customer_problems}</p>
-  </div>
-  <div style="padding:24px 32px;">
-    <h2 style="color:#0d1b2e;">30 Concepts + Scripts</h2>`;
-
-  concepts.forEach((c) => {
-    html += `<div style="margin-bottom:24px;border:1px solid #ddd;border-radius:6px;overflow:hidden;">
-      <div style="background:#0d1b2e;padding:12px 16px;">
-        <div style="color:#c9a84c;font-size:10px;font-weight:bold;">CONCEPT ${c.number} · ${(c.type||"").toUpperCase()} · ${(c.platform||"").toUpperCase()}</div>
-        <div style="color:#fff;font-size:15px;font-weight:bold;margin-top:4px;">${esc(c.hook)}</div>
-      </div>
-      <div style="padding:14px 16px;">
-        <p style="color:#374151;font-size:13px;">${esc(c.concept)}</p>
-        <div style="background:#f9f5ed;border:1px solid #e8d9b5;border-radius:4px;padding:12px;font-size:13px;white-space:pre-wrap;">${esc(c.script||"")}</div>
-      </div>
-    </div>`;
-  });
-
-  html += `</div><div style="background:#0d1b2e;padding:16px 32px;text-align:center;color:#6b7a90;font-size:11px;">Schreier Group LLC · schreiergroup.com</div></div>`;
-
-  const result = await resend.emails.send({
-    from: "Schreier Group <onboarding@resend.dev>",
-    to: adminEmail,
-    subject: `[Concept Generator] ${brand.brand_name} — ${concepts.length} concepts ready`,
-    html,
-  });
-  console.log("Resend result:", JSON.stringify(result));
-}
-
-function esc(str) {
-  return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
 }
 
 function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
