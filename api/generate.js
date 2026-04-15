@@ -1,6 +1,8 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { Resend } from "resend";
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const config = { maxDuration: 300 };
 
@@ -28,26 +30,17 @@ export default async function handler(req, res) {
     const concepts = JSON.parse(conceptsRaw.replace(/```json|```/g, "").trim());
     const withScripts = await generateAllScripts(brand, concepts);
 
-    const message = buildEmailMessage(brand, withScripts);
-
     try {
-      const emailRes = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          service_id: "service_wnuvkhj",
-          template_id: "template_2uq0p1p",
-          user_id: "Rs5tBkY26YeCyGfdO",
-          template_params: {
-            name: `${brand.submitter_name} — ${brand.brand_name}`,
-            email: brand.submitter_email,
-            time: new Date().toLocaleString(),
-            message: message,
-          }
-        })
+      const result = await resend.emails.send({
+        from: "Schreier Group <onboarding@resend.dev>",
+        to: ["TSchreier606@gmail.com"],
+        subject: `[New Submission] ${brand.brand_name} — ${brand.submitter_name}`,
+        text: buildEmailMessage(brand, withScripts),
       });
-      const emailText = await emailRes.text();
-      console.log("EmailJS result:", emailRes.status, emailText);
+      console.log("Resend result:", JSON.stringify(result));
+      if (result.error) {
+        console.error("Resend error detail:", JSON.stringify(result.error));
+      }
     } catch (emailErr) {
       console.error("EMAIL FAILED:", emailErr.message);
     }
