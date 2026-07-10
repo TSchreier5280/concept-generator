@@ -84,7 +84,7 @@ async function callClaude(system, user) {
     system,
     messages: [{ role: "user", content: user }],
   });
-  return msg.content[0].text;
+  return msg.content.filter(b => b.type === "text").map(b => b.text).join("");
 }
 
 function buildConceptsPrompt(d) {
