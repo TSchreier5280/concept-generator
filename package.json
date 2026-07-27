@@ -4,6 +4,7 @@
   "description": "Schreier Group Social Media Concept Generator",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.20.0",
+    "pdfkit": "^0.15.0",
     "resend": "^3.2.0"
   }
 }

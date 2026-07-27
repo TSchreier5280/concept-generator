@@ -3,57 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Content Concept Generator — Schreier Group</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<title>Schreier.AI — Content Concept Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy:  #0d1b2e;
-  --navy2: #162540;
-  --navy3: #1f3258;
-  --gold:  #c9a84c;
-  --gold2: #e8c96a;
-  --cream: #f5f0e8;
-  --text:  #1a1a2e;
+  --navy:  #0e0e0e;
+  --navy2: #1a1a1a;
+  --navy3: #262626;
+  --gold:  #10b9e6;
+  --gold2: #5fd4f5;
+  --cream: #f5f3ef;
+  --text:  #141414;
   --muted: #6b7280;
-  --border:#ddd4c0;
+  --border:#ddd6c9;
   --white: #ffffff;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--cream); color: var(--text); font-family: 'Inter', sans-serif; font-weight: 300; min-height: 100vh; }
+body { background: var(--cream); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; }
 .topbar { background: var(--navy); padding: 0 2rem; height: 56px; display: flex; align-items: center; border-bottom: 3px solid var(--gold); position: sticky; top: 0; z-index: 100; }
 .logo-area { display: flex; align-items: center; gap: 0.75rem; }
-.logo-mark { width: 36px; height: 36px; background: var(--gold); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--navy); }
+.logo-mark { width: 36px; height: 36px; background: var(--gold); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; font-weight: 600; color: var(--navy); }
 .logo-text .company { color: #fff; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.04em; }
-.logo-text .tagline { color: #6b7a90; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.logo-text .tagline { color: #9a9a9a; font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; }
 .hero { background: var(--navy); color: var(--white); padding: 3.5rem 2rem 3rem; text-align: center; }
 .eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.9rem; }
-.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; line-height: 1.15; margin-bottom: 1rem; }
-.hero h1 em { font-style: italic; color: var(--gold2); }
-.hero p { color: #a0b0c0; font-size: 0.93rem; max-width: 540px; margin: 0 auto; line-height: 1.75; }
+.hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 400; line-height: 1.05; letter-spacing: 0.02em; margin-bottom: 1rem; }
+.hero h1 em { font-style: normal; color: var(--gold); }
+.hero p { color: #bdbdbd; font-size: 0.93rem; max-width: 540px; margin: 0 auto; line-height: 1.75; }
 .form-wrap { max-width: 700px; margin: 2.5rem auto 4rem; padding: 0 1.5rem; }
 .section-header { display: flex; align-items: center; gap: 0.75rem; margin: 2.5rem 0 1.4rem; }
 .section-num { width: 26px; height: 26px; background: var(--navy); color: var(--gold); border-radius: 50%; font-size: 0.72rem; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.section-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--navy); }
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; font-weight: 600; color: var(--navy); }
 .field { margin-bottom: 1.3rem; }
 label.field-label { display: block; font-size: 0.78rem; font-weight: 500; color: var(--navy); margin-bottom: 0.3rem; letter-spacing: 0.02em; }
 label.field-label .req { color: var(--gold); }
 .field-hint { font-size: 0.73rem; color: var(--muted); margin-bottom: 0.4rem; line-height: 1.6; }
-input[type="text"], input[type="email"], textarea { width: 100%; background: var(--white); border: 1px solid var(--border); color: var(--text); font-family: 'Inter', sans-serif; font-size: 0.87rem; font-weight: 300; padding: 0.62rem 0.88rem; border-radius: 4px; outline: none; transition: border-color 0.2s; resize: vertical; }
-input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.1); }
+input[type="text"], input[type="email"], textarea { width: 100%; background: var(--white); border: 1px solid var(--border); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.87rem; font-weight: 300; padding: 0.62rem 0.88rem; border-radius: 4px; outline: none; transition: border-color 0.2s; resize: vertical; }
+input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(16,185,230,0.15); }
 textarea { min-height: 85px; }
 .options-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr)); gap: 0.45rem; }
 .option-item { display: flex; align-items: center; gap: 0.5rem; background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 0.5rem 0.7rem; cursor: pointer; font-size: 0.81rem; user-select: none; transition: all 0.15s; }
-.option-item:hover { border-color: var(--gold); background: #fdf8ed; }
+.option-item:hover { border-color: var(--gold); background: #eaf7fc; }
 .option-item input { accent-color: var(--gold); width: 13px; height: 13px; }
-.option-item.selected { border-color: var(--gold); background: #fdf5dc; }
+.option-item.selected { border-color: var(--gold); background: #dff3fb; }
 .submitter-box { background: var(--white); border: 1px solid var(--gold); border-radius: 6px; padding: 1.2rem 1.4rem; margin-bottom: 1.5rem; }
-.submitter-box h4 { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.75rem; }
+.submitter-box h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.75rem; }
 .submitter-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
 .submit-area { background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-top: 2rem; }
-.submit-area h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.4rem; }
+.submit-area h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--navy); margin-bottom: 0.4rem; }
 .submit-area .sub-note { font-size: 0.8rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.2rem; }
-#submit-btn { display: block; width: 100%; background: var(--navy); color: var(--white); border: none; font-family: 'Inter', sans-serif; font-size: 0.93rem; font-weight: 500; padding: 0.9rem; border-radius: 4px; cursor: pointer; transition: background 0.2s, transform 0.1s; letter-spacing: 0.03em; }
+#submit-btn { display: block; width: 100%; background: var(--navy); color: var(--white); border: none; font-family: 'DM Sans', sans-serif; font-size: 0.93rem; font-weight: 500; padding: 0.9rem; border-radius: 4px; cursor: pointer; transition: background 0.2s, transform 0.1s; letter-spacing: 0.03em; }
 #submit-btn:hover:not(:disabled) { background: var(--navy3); transform: translateY(-1px); }
 #submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 .progress-wrap { display: none; margin-top: 1rem; }
@@ -63,7 +62,7 @@ textarea { min-height: 85px; }
 #status { margin-top: 0.8rem; font-size: 0.82rem; color: var(--muted); text-align: center; min-height: 1.2rem; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .spinner { display: inline-block; width: 13px; height: 13px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
-footer { background: var(--navy); color: #6b7a90; text-align: center; padding: 1.5rem; font-size: 0.76rem; letter-spacing: 0.04em; }
+footer { background: var(--navy); color: #9a9a9a; text-align: center; padding: 1.5rem; font-size: 0.76rem; letter-spacing: 0.04em; }
 footer a { color: var(--gold); text-decoration: none; }
 #thankyou-banner { display: none; background: #d1fae5; border: 1px solid #6ee7b7; border-radius: 6px; padding: 0.8rem 1.2rem; font-size: 0.83rem; color: #065f46; margin-top: 1rem; text-align: center; }
 </style>
@@ -74,7 +73,7 @@ footer a { color: var(--gold); text-decoration: none; }
     <div class="logo-mark">SG</div>
     <div class="logo-text">
       <div class="company">Schreier Group</div>
-      <div class="tagline">Sales · Marketing · HR Consulting</div>
+      <div class="tagline">A family firm · schreiergroup.com</div>
     </div>
   </div>
 </div>
@@ -161,18 +160,18 @@ footer a { color: var(--gold); text-decoration: none; }
   <div class="field"><label class="field-label">Upcoming launches, events, or seasonal moments in the next 3 months?</label><textarea id="upcoming" rows="2"></textarea></div>
   <div class="submit-area">
     <h3>Ready to generate your concepts?</h3>
-    <p class="sub-note">Fill out the form above and hit the button below. The Schreier Group team will receive your completed brief and follow up with your 30 custom concepts and full scripts as a branded PDF.</p>
+    <p class="sub-note">Fill out the form above and hit the button below. Hit the button and our AI goes to work: 30 custom concepts with full teleprompter scripts, generated from your brief and delivered by the Schreier Group team as a clean, branded PDF.</p>
     <button id="submit-btn" onclick="submitForm()">Submit My Brand Brief →</button>
     <div class="progress-wrap" id="progress-wrap">
       <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
       <div class="progress-label" id="progress-label">Starting…</div>
     </div>
     <p id="status"></p>
-    <div id="thankyou-banner">✓ Your brief has been received! The Schreier Group team will review it and follow up with your 30 custom concepts and full teleprompter scripts as a branded PDF.</div>
+    <div id="thankyou-banner">✓ Your brief is in! Your 30 custom concepts and full teleprompter scripts are being generated now — the Schreier Group team will deliver them to you as a clean, branded PDF.</div>
   </div>
 </div>
 <footer>
-  <strong>Schreier Group LLC</strong> &nbsp;·&nbsp; Sales, Marketing &amp; HR Consulting &nbsp;·&nbsp;
+  <strong>Schreier Group LLC</strong> &nbsp;·&nbsp; A family firm helping small business owners grow — without losing themselves &nbsp;·&nbsp;
   <a href="https://schreiergroup.com" target="_blank">schreiergroup.com</a>
 </footer>
 <script>
