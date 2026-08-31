@@ -5,256 +5,120 @@
 
 <style>
   :root {
-    --ground:      #f5f3ef;
-    --ground-2:    #eceae3;
-    --text:        #1a1a18;
-    --text-2:      #5c5952;
-    --rule:        #ddd6c9;
-    --rule-soft:   #e7e2d8;
-    --cyan:        #10b9e6;
-    --cyan-ink:    #0a7590;
-    --good:        #3d7a58;
-    --warn:        #9a6b1f;
-    --band:        #0e0e0e;
-    --band-text:   #f5f3ef;
-    --band-text-2: #a29e96;
-    --band-rule:   #2c2c29;
-
-    --display: "Bebas Neue", "Oswald", "Arial Narrow", sans-serif;
-    --body: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-
-    --col: 68ch;
-    --pad: clamp(1.25rem, 5vw, 3.5rem);
+    --ground:#f5f3ef; --ground-2:#eceae3; --text:#1a1a18; --text-2:#5c5952;
+    --rule:#ddd6c9; --rule-soft:#e7e2d8;
+    --cyan:#10b9e6; --cyan-ink:#0a7590;
+    --good:#3d7a58; --warn:#9a6b1f; --stop:#a33f2e;
+    --band:#0e0e0e; --band-text:#f5f3ef; --band-text-2:#a29e96; --band-rule:#2c2c29;
+    --display:"Bebas Neue","Oswald","Arial Narrow",sans-serif;
+    --body:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    --col:68ch; --pad:clamp(1.25rem,5vw,3.5rem);
   }
-
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --ground:      #131311;
-      --ground-2:    #1c1c19;
-      --text:        #ece8e0;
-      --text-2:      #9d998f;
-      --rule:        #2e2d29;
-      --rule-soft:   #232320;
-      --cyan:        #10b9e6;
-      --cyan-ink:    #55d2f4;
-      --good:        #6fbf92;
-      --warn:        #d8a54a;
-      --band:        #0a0a09;
-      --band-text:   #f5f3ef;
-      --band-text-2: #8b877f;
-      --band-rule:   #262624;
+      --ground:#131311; --ground-2:#1c1c19; --text:#ece8e0; --text-2:#9d998f;
+      --rule:#2e2d29; --rule-soft:#232320;
+      --cyan:#10b9e6; --cyan-ink:#55d2f4;
+      --good:#6fbf92; --warn:#d8a54a; --stop:#e08472;
+      --band:#0a0a09; --band-text:#f5f3ef; --band-text-2:#8b877f; --band-rule:#262624;
     }
   }
-
   :root[data-theme="dark"] {
-    --ground:      #131311;
-    --ground-2:    #1c1c19;
-    --text:        #ece8e0;
-    --text-2:      #9d998f;
-    --rule:        #2e2d29;
-    --rule-soft:   #232320;
-    --cyan:        #10b9e6;
-    --cyan-ink:    #55d2f4;
-    --good:        #6fbf92;
-    --warn:        #d8a54a;
-    --band:        #0a0a09;
-    --band-text:   #f5f3ef;
-    --band-text-2: #8b877f;
-    --band-rule:   #262624;
+    --ground:#131311; --ground-2:#1c1c19; --text:#ece8e0; --text-2:#9d998f;
+    --rule:#2e2d29; --rule-soft:#232320;
+    --cyan:#10b9e6; --cyan-ink:#55d2f4;
+    --good:#6fbf92; --warn:#d8a54a; --stop:#e08472;
+    --band:#0a0a09; --band-text:#f5f3ef; --band-text-2:#8b877f; --band-rule:#262624;
   }
 
-  * { box-sizing: border-box; }
+  * { box-sizing:border-box; }
+  body { background:var(--ground); color:var(--text); font-family:var(--body); font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased; }
 
-  body {
-    background: var(--ground);
-    color: var(--text);
-    font-family: var(--body);
-    font-size: 17px;
-    line-height: 1.62;
-    -webkit-font-smoothing: antialiased;
-  }
+  .wrap { max-width:var(--col); margin-inline:auto; padding-inline:var(--pad); }
+  .wrap--wide { max-width:90ch; }
 
-  .wrap { max-width: var(--col); margin-inline: auto; padding-inline: var(--pad); }
-  .wrap--wide { max-width: 90ch; }
+  .masthead { background:var(--band); color:var(--band-text); border-bottom:4px solid var(--cyan); padding-block:clamp(1.6rem,4vw,2.4rem); }
+  .wordmark { font-family:var(--body); font-weight:700; font-size:clamp(1rem,2.4vw,1.3rem); letter-spacing:0.22em; margin:0; }
+  .wordmark-sub { font-size:0.66rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--band-text-2); margin:0.55rem 0 0; }
 
-  .masthead {
-    background: var(--band);
-    color: var(--band-text);
-    border-bottom: 4px solid var(--cyan);
-    padding-block: clamp(1.6rem, 4vw, 2.4rem);
-  }
-  .wordmark {
-    font-family: var(--body);
-    font-weight: 700;
-    font-size: clamp(1rem, 2.4vw, 1.3rem);
-    letter-spacing: 0.22em;
-    margin: 0;
-  }
-  .wordmark-sub {
-    font-size: 0.66rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--band-text-2);
-    margin: 0.55rem 0 0;
-  }
+  .title-block { padding-block:clamp(3rem,9vw,6rem) clamp(2rem,5vw,3.25rem); border-bottom:1px solid var(--rule); }
+  h1 { font-family:var(--display); font-size:clamp(3.4rem,13vw,7rem); line-height:0.88; margin:0; text-wrap:balance; }
+  .deck { font-size:clamp(1.06rem,2.4vw,1.25rem); color:var(--text-2); max-width:50ch; margin:1.5rem 0 0; text-wrap:pretty; }
+  .provenance { display:flex; flex-wrap:wrap; gap:0.5rem 1.75rem; margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--rule-soft); font-size:0.78rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-2); }
 
-  .title-block {
-    padding-block: clamp(3rem, 9vw, 6rem) clamp(2rem, 5vw, 3.25rem);
-    border-bottom: 1px solid var(--rule);
-  }
-  h1 {
-    font-family: var(--display);
-    font-size: clamp(3.4rem, 13vw, 7rem);
-    line-height: 0.88;
-    margin: 0;
-    text-wrap: balance;
-  }
-  .deck {
-    font-size: clamp(1.06rem, 2.4vw, 1.25rem);
-    color: var(--text-2);
-    max-width: 48ch;
-    margin: 1.5rem 0 0;
-    text-wrap: pretty;
-  }
-  .provenance {
-    display: flex; flex-wrap: wrap;
-    gap: 0.5rem 1.75rem;
-    margin-top: 2.5rem; padding-top: 1.5rem;
-    border-top: 1px solid var(--rule-soft);
-    font-size: 0.78rem; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--text-2);
-  }
+  .part { background:var(--band); color:var(--band-text); padding-block:clamp(2.75rem,7vw,4.5rem); margin-top:clamp(3rem,7vw,5rem); }
+  .part-label { font-size:0.72rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--cyan); margin:0 0 0.9rem; }
+  .part h2 { font-family:var(--display); font-size:clamp(2.4rem,7.5vw,4rem); line-height:0.95; margin:0; text-wrap:balance; }
+  .part p { color:var(--band-text-2); max-width:54ch; margin:1.25rem 0 0; }
 
-  .part {
-    background: var(--band);
-    color: var(--band-text);
-    padding-block: clamp(2.75rem, 7vw, 4.5rem);
-    margin-top: clamp(3rem, 7vw, 5rem);
-  }
-  .part-label {
-    font-size: 0.72rem; letter-spacing: 0.24em;
-    text-transform: uppercase; color: var(--cyan);
-    margin: 0 0 0.9rem;
-  }
-  .part h2 {
-    font-family: var(--display);
-    font-size: clamp(2.4rem, 7.5vw, 4rem);
-    line-height: 0.95; margin: 0; text-wrap: balance;
-  }
-  .part p { color: var(--band-text-2); max-width: 54ch; margin: 1.25rem 0 0; }
+  section { padding-block:clamp(2.25rem,5vw,3.5rem); }
+  h3 { font-family:var(--display); font-size:clamp(1.75rem,4.2vw,2.35rem); line-height:1.04; margin:0 0 0.35rem; text-wrap:balance; }
+  .eyebrow { font-size:0.72rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--cyan-ink); margin:0 0 0.75rem; font-weight:500; }
+  h4 { font-size:0.95rem; font-weight:700; margin:2rem 0 0.4rem; }
+  p { margin:0 0 1.1rem; text-wrap:pretty; }
+  p:last-child { margin-bottom:0; }
+  .lede { font-size:1.16rem; line-height:1.55; }
 
-  section { padding-block: clamp(2.25rem, 5vw, 3.5rem); }
+  .amend { border:1px solid var(--rule); border-left:4px solid var(--warn); background:var(--ground-2); padding:1.35rem 1.45rem; margin:1.75rem 0 0; }
+  .amend h4 { margin:0 0 0.6rem; font-size:0.78rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--warn); }
+  .amend p { font-size:0.95rem; margin:0; }
 
-  h3 {
-    font-family: var(--display);
-    font-size: clamp(1.75rem, 4.2vw, 2.35rem);
-    line-height: 1.04; margin: 0 0 0.35rem; text-wrap: balance;
-  }
-  .eyebrow {
-    font-size: 0.72rem; letter-spacing: 0.2em;
-    text-transform: uppercase; color: var(--cyan-ink);
-    margin: 0 0 0.75rem; font-weight: 500;
-  }
-  h4 { font-size: 0.95rem; font-weight: 700; margin: 2rem 0 0.4rem; }
-  p { margin: 0 0 1.1rem; text-wrap: pretty; }
-  p:last-child { margin-bottom: 0; }
-  .lede { font-size: 1.16rem; line-height: 1.55; }
+  .stat-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); margin:2rem 0; }
+  .stat { background:var(--ground); padding:1.25rem 1.35rem 1.4rem; }
+  .stat-num { font-family:var(--display); font-size:clamp(2rem,5.2vw,2.8rem); line-height:1; font-variant-numeric:tabular-nums; display:block; }
+  .stat-num .unit { font-size:0.5em; color:var(--text-2); margin-left:0.12em; }
+  .stat-label { font-size:0.74rem; letter-spacing:0.09em; text-transform:uppercase; color:var(--text-2); margin:0.6rem 0 0; line-height:1.4; }
 
-  .stat-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
-    gap: 1px; background: var(--rule);
-    border: 1px solid var(--rule); margin: 2rem 0;
-  }
-  .stat { background: var(--ground); padding: 1.25rem 1.35rem 1.4rem; }
-  .stat-num {
-    font-family: var(--display);
-    font-size: clamp(2rem, 5.2vw, 2.8rem);
-    line-height: 1; font-variant-numeric: tabular-nums; display: block;
-  }
-  .stat-num .unit { font-size: 0.5em; color: var(--text-2); margin-left: 0.12em; }
-  .stat-label {
-    font-size: 0.74rem; letter-spacing: 0.09em; text-transform: uppercase;
-    color: var(--text-2); margin: 0.6rem 0 0; line-height: 1.4;
-  }
+  .table-scroll { overflow-x:auto; margin:2rem 0 0.9rem; border-top:2px solid var(--text); border-bottom:1px solid var(--rule); }
+  table { width:100%; border-collapse:collapse; font-size:0.9rem; font-variant-numeric:tabular-nums; }
+  caption { caption-side:top; text-align:left; font-size:0.74rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-2); padding-bottom:0.7rem; }
+  th, td { text-align:right; padding:0.58rem 0.5rem; border-bottom:1px solid var(--rule-soft); white-space:nowrap; }
+  th:first-child, td:first-child { text-align:left; white-space:normal; min-width:14ch; }
+  td.free { text-align:left; white-space:normal; }
+  thead th { font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-2); font-weight:500; border-bottom:1px solid var(--rule); }
+  tbody tr:last-child th, tbody tr:last-child td { border-bottom:none; }
+  .row-total th, .row-total td { border-top:1px solid var(--rule); font-weight:700; }
+  .row-sub th { color:var(--text-2); font-weight:500; font-size:0.82rem; letter-spacing:0.08em; text-transform:uppercase; padding-top:1rem; }
+  .pos { color:var(--good); } .neg { color:var(--warn); }
+  .figure-note { font-size:0.82rem; color:var(--text-2); margin:0; }
 
-  .table-scroll {
-    overflow-x: auto; margin: 2rem 0 0.9rem;
-    border-top: 2px solid var(--text); border-bottom: 1px solid var(--rule);
-  }
-  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
-  caption {
-    caption-side: top; text-align: left;
-    font-size: 0.74rem; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--text-2); padding-bottom: 0.7rem;
-  }
-  th, td {
-    text-align: right; padding: 0.58rem 0.5rem;
-    border-bottom: 1px solid var(--rule-soft); white-space: nowrap;
-  }
-  th:first-child, td:first-child { text-align: left; white-space: normal; min-width: 14ch; }
-  thead th {
-    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--text-2); font-weight: 500; border-bottom: 1px solid var(--rule);
-  }
-  tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
-  .row-total th, .row-total td { border-top: 1px solid var(--rule); font-weight: 700; }
-  .pos { color: var(--good); }
-  .neg { color: var(--warn); }
-  .figure-note { font-size: 0.82rem; color: var(--text-2); margin: 0; }
+  figure { margin:2rem 0 0; }
+  figure svg { max-width:100%; height:auto; display:block; }
+  figcaption { font-size:0.82rem; color:var(--text-2); margin-top:0.9rem; padding-top:0.75rem; border-top:1px solid var(--rule-soft); }
 
-  figure { margin: 2rem 0 0; }
-  figure svg { max-width: 100%; height: auto; display: block; }
-  figcaption {
-    font-size: 0.82rem; color: var(--text-2);
-    margin-top: 0.9rem; padding-top: 0.75rem;
-    border-top: 1px solid var(--rule-soft);
-  }
+  .rules { list-style:none; margin:1.5rem 0 0; padding:0; }
+  .rules li { display:grid; grid-template-columns:auto 1fr; gap:0 0.9rem; padding:0.9rem 0; border-top:1px solid var(--rule-soft); font-size:0.96rem; }
+  .rules li:first-child { border-top:1px solid var(--rule); }
+  .rules li::before { content:""; width:8px; height:8px; background:var(--cyan); margin-top:0.55em; }
+  .rules strong { display:block; margin-bottom:0.15rem; }
+  .rules span { color:var(--text-2); }
+  .keep li::before { background:var(--good); }
+  .change li::before { background:var(--warn); }
+  .fix li::before { background:var(--stop); }
 
-  .rules { list-style: none; margin: 1.5rem 0 0; padding: 0; }
-  .rules li {
-    display: grid; grid-template-columns: auto 1fr; gap: 0 0.9rem;
-    padding: 0.9rem 0; border-top: 1px solid var(--rule-soft); font-size: 0.96rem;
-  }
-  .rules li:first-child { border-top: 1px solid var(--rule); }
-  .rules li::before { content: ""; width: 8px; height: 8px; background: var(--cyan); margin-top: 0.55em; }
-  .rules strong { display: block; margin-bottom: 0.15rem; }
-  .rules span { color: var(--text-2); }
+  .cue { display:grid; grid-template-columns:9ch 1fr; gap:0 1.5rem; padding:1rem 0; border-top:1px solid var(--rule-soft); }
+  .cue:first-child { border-top:1px solid var(--rule); }
+  .cue-time { font-family:var(--display); font-size:1.4rem; line-height:1.2; color:var(--cyan-ink); font-variant-numeric:tabular-nums; }
+  .cue-body h5 { font-size:0.95rem; font-weight:700; margin:0 0 0.3rem; }
+  .cue-body p { font-size:0.94rem; color:var(--text-2); margin:0; }
 
-  .keep li::before { background: var(--good); }
-  .change li::before { background: var(--warn); }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); margin:1.75rem 0 0; }
+  .card { background:var(--ground); padding:1.4rem 1.35rem; }
+  .card h5 { font-family:var(--display); font-size:1.5rem; line-height:1.05; margin:0 0 0.15rem; }
+  .card .tag { font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--cyan-ink); margin:0 0 0.85rem; }
+  .card p { font-size:0.92rem; color:var(--text-2); margin:0; }
 
-  .cue { display: grid; grid-template-columns: 8.5ch 1fr; gap: 0 1.5rem; padding: 1rem 0; border-top: 1px solid var(--rule-soft); }
-  .cue:first-child { border-top: 1px solid var(--rule); }
-  .cue-time {
-    font-family: var(--display); font-size: 1.4rem; line-height: 1.2;
-    color: var(--cyan-ink); font-variant-numeric: tabular-nums;
-  }
-  .cue-body h5 { font-size: 0.95rem; font-weight: 700; margin: 0 0 0.3rem; }
-  .cue-body p { font-size: 0.94rem; color: var(--text-2); margin: 0; }
+  ul.plain { padding-left:1.15rem; margin:0 0 1.1rem; }
+  ul.plain li { margin-bottom:0.5rem; }
 
-  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 1.75rem 0 0; }
-  .card { background: var(--ground); padding: 1.4rem 1.35rem; }
-  .card h5 { font-family: var(--display); font-size: 1.5rem; line-height: 1.05; margin: 0 0 0.15rem; }
-  .card .tag { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan-ink); margin: 0 0 0.85rem; }
-  .card p { font-size: 0.92rem; color: var(--text-2); margin: 0; }
+  .colophon { background:var(--band); color:var(--band-text-2); margin-top:clamp(3rem,7vw,5rem); padding-block:clamp(2.5rem,6vw,3.5rem); font-size:0.88rem; }
+  .colophon strong { color:var(--band-text); }
+  .colophon p { max-width:60ch; }
+  .colophon hr { border:none; border-top:1px solid var(--band-rule); margin:1.75rem 0; }
+  .colophon .wordmark { font-size:0.95rem; color:var(--band-text); }
 
-  ul.plain { padding-left: 1.15rem; margin: 0 0 1.1rem; }
-  ul.plain li { margin-bottom: 0.5rem; }
-
-  .colophon {
-    background: var(--band); color: var(--band-text-2);
-    margin-top: clamp(3rem, 7vw, 5rem);
-    padding-block: clamp(2.5rem, 6vw, 3.5rem); font-size: 0.88rem;
-  }
-  .colophon strong { color: var(--band-text); }
-  .colophon p { max-width: 60ch; }
-  .colophon hr { border: none; border-top: 1px solid var(--band-rule); margin: 1.75rem 0; }
-  .colophon .wordmark { font-size: 0.95rem; color: var(--band-text); }
-  .colophon a { color: var(--cyan); }
-
-  a { color: var(--cyan-ink); }
-  a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+  a { color:var(--cyan-ink); }
+  a:focus-visible { outline:2px solid var(--cyan); outline-offset:3px; }
 </style>
 
 <header class="masthead">
@@ -266,167 +130,257 @@
 
 <div class="wrap wrap--wide title-block">
   <h1>The Johnstown<br>Run</h1>
-  <p class="deck">A live-actor immersive show with no lease, no build-out, and no permanent address &mdash; touring the Front Range on a repeating circuit out of one trailer.</p>
+  <p class="deck">An original live-actor show built on a real Johnstown legend, touring the Front Range out of one trailer &mdash; no lease, no build-out, and no permanent address.</p>
   <div class="provenance">
+    <span>Second draft</span>
     <span>Johnstown, Colorado</span>
     <span>9 runs a year</span>
-    <span>Venture plan &mdash; August 2026</span>
   </div>
 </div>
 
 <div class="part">
   <div class="wrap wrap--wide">
-    <p class="part-label">The reframe</p>
-    <h2>Stop paying rent to wait for customers</h2>
-    <p>The original production paid $860 to $1,000 a month per city for a room that sat dark most of the week. Going pop-up deletes that line entirely &mdash; and replaces it with a different problem worth having.</p>
+    <p class="part-label">What changed</p>
+    <h2>Eight holes in the first draft</h2>
+    <p>Two of them were serious enough to have stopped the business in week one. They are listed here rather than quietly patched, because the fixes reshaped the plan.</p>
   </div>
 </div>
 
 <section class="wrap wrap--wide">
-  <p class="eyebrow">Three things change</p>
-  <h3>What a pop-up gains, and what it owes</h3>
+  <ul class="rules fix">
+    <li><strong>The show was not ours to tour</strong><span>The first draft assumed we could rebrand the original production. The format &mdash; a constrained performer, a timed release, a silent guide &mdash; is not protectable. The script, the characters, the puzzle designs and the name absolutely are, and the contractor agreements in the archive included a non-compete. <strong>Fix: an original property, built below.</strong></span></li>
+    <li><strong>Escape rooms are a regulated occupancy</strong><span>Under NFPA 101 and IBC/IFC Section 411, a room like this is a <em>special amusement building</em> &mdash; it takes assembly-occupancy provisions <em>regardless of occupant load</em>, plus smoke detection under reduced lighting and 90 minutes of emergency illumination. Putting it in an empty retail bay is a change of occupancy that needs a new certificate whether or not you touch the walls. <strong>Fix: the venue order is inverted, below.</strong></span></li>
+    <li><strong>Sales tax was missing entirely</strong><span>Johnstown's combined rate is roughly 7.9%. Colorado also runs a special-event sales tax licence, which is the right instrument for a touring show. Not income, but not optional either.</span></li>
+    <li><strong>Nobody was selling the corporate bookings</strong><span>The whole model turns on ten corporate slots per run, and the first draft had no one selling them and no cost for doing so. A booking commission is now in the P&amp;L.</span></li>
+    <li><strong>Merchandise and photos were left on the table</strong><span>The original's own guest survey asked what merchandise people would buy, and its ledgers show t-shirt sales. At 432 guests a run this is real money at near-zero marginal cost.</span></li>
+    <li><strong>No working-capital figure</strong><span>Annual profit is not the question. How deep the hole goes before the first ticket sells is the question.</span></li>
+    <li><strong>Estes Park contradicted the model</strong><span>A walk-up tourist market has no corporate base and cannot be sold in buyouts &mdash; it is structurally the weak column. Repriced and re-scoped.</span></li>
+    <li><strong>Insurance was under-costed</strong><span>$400 a run for a show involving physical performers and confined guests was optimistic. Now an annual policy, allocated.</span></li>
+  </ul>
+</section>
 
-  <ul class="rules">
-    <li><strong>Rent stops being fixed and starts being variable</strong><span>You pay a venue only for nights you are actually selling. In a permanent room, every dark Tuesday is a cost. On a run, there are no dark Tuesdays &mdash; you are not there.</span></li>
-    <li><strong>Scarcity becomes real instead of manufactured</strong><span>The original had to fake urgency by releasing tickets exactly one month out at 12:30 in the morning. "Nine nights in Johnstown, then it's gone" needs no trick. It is simply true, and it is the strongest sales line in the business.</span></li>
-    <li><strong>Reputation stops accruing to a location &mdash; this is the bill</strong><span>A permanent room compounds reviews, search ranking and walk-past traffic for years. A pop-up rebuilds awareness every single run. That is the real cost of the model, and it has to be paid in marketing spend and in one brand that follows the show from town to town.</span></li>
+<div class="part">
+  <div class="wrap wrap--wide">
+    <p class="part-label">The show</p>
+    <h2>The Fall &mdash; Johnstown, 1924</h2>
+    <p>On 6 July 1924, roughly two hundred people at a graveside funeral outside Johnstown watched something come out of the sky and bury itself four feet into the ground. Being at a burial, they had shovels. They dug it up.</p>
+  </div>
+</div>
+
+<section class="wrap wrap--wide">
+  <p class="lede">You do not need to license anybody's zombie. Johnstown has its own legend, it is true, it is out of copyright, and it is better.</p>
+
+  <p>The Johnstown meteorite fell during a funeral service at the Dilley Chapel in Elwell, two miles west of the present town. Twenty-seven fragments were eventually recovered across a fall zone stretching roughly ten miles south to Mead. The largest piece &mdash; about fifty-two pounds &mdash; sits in the American Museum of Natural History in New York. A dime-sized piece is on display at the Historic Parish House and Museum on Charlotte Street, and the town threw the rock a hundredth birthday party in 2024.</p>
+
+  <p><strong>The premise:</strong> you are the mourners. The service is interrupted. The thing is on the table in the back room of the chapel, still warm, and the hour you have is the hour before the county men arrive to take it away. Something came down with it.</p>
+
+  <div class="amend">
+    <h4>Handle the history carefully</h4>
+    <p>The 1924 funeral was for a real man from Milliken, and his descendants are plausibly still in the area. The show invents its own deceased and says so plainly in the programme. The Johnstown Historical Society is a partner worth more than any plot point &mdash; do not make a monster out of somebody's great-grandfather.</p>
+  </div>
+
+  <h4>Why this property, specifically</h4>
+  <ul class="plain">
+    <li><strong>You own it outright.</strong> No licence, no royalty, no non-compete, no phone call you would rather not make.</li>
+    <li><strong>The fall zone is the touring route.</strong> Elwell, Johnstown, Milliken, Mead &mdash; a ten-mile scatter that maps almost exactly onto the first four stops. Every town on the line can legitimately claim a piece of the story, and the marketing writes itself: <em>it landed here too.</em></li>
+    <li><strong>It buys you the press for free.</strong> A local historical event with a museum, a centenary and an MIT connection gets covered. A generic haunt does not.</li>
+    <li><strong>It is a partnership, not a competitor.</strong> The Historical Society and the Parish House Museum gain a reason for people under forty to care about their collection. Give them a cut of the door or a night of their own.</li>
+    <li><strong>It scales the right way.</strong> Year two, every new market gets its own local legend on the same chassis. The mechanism travels; the story is always theirs.</li>
   </ul>
 
-  <p style="margin-top:1.75rem;">The original booked <strong>$0 marketing</strong> in both Chicago and Columbus, because a room that has been open eighteen months markets itself. Budget for that line here. It is the single most common way this model fails.</p>
+  <h4>The engine, unchanged</h4>
+  <p>What carries over from the archive is not the story &mdash; it is the machine underneath it. One performer, physically constrained, whose reach extends by one increment every time a bell sounds. Twelve guests, sixty minutes, five sequential discoveries. A silent guide who never speaks and never stops steering.</p>
+  <p>Both operators are secretly working the same objective, and it is not to win:</p>
+
+  <figure>
+    <svg viewBox="0 0 720 250" role="img" aria-label="A sixty-minute timeline showing five clue discoveries above the line and five chain releases below it, interleaved so that the performer's reach and the guests' progress are engineered to converge at minute fifty-nine.">
+      <defs>
+        <marker id="tf-tip" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
+        </marker>
+      </defs>
+
+      <text x="60" y="34" font-size="11" fill="currentColor" opacity="0.6" letter-spacing="1.5">GUESTS FIND</text>
+      <text x="60" y="240" font-size="11" fill="currentColor" opacity="0.6" letter-spacing="1.5">CHAIN RELEASES</text>
+
+      <!-- clue markers above -->
+      <g fill="currentColor">
+        <circle cx="163" cy="96" r="5"></circle><line x1="163" y1="101" x2="163" y2="140" stroke="currentColor" stroke-width="1" opacity="0.4"></line>
+        <circle cx="287" cy="96" r="5"></circle><line x1="287" y1="101" x2="287" y2="140" stroke="currentColor" stroke-width="1" opacity="0.4"></line>
+        <circle cx="411" cy="96" r="5"></circle><line x1="411" y1="101" x2="411" y2="140" stroke="currentColor" stroke-width="1" opacity="0.4"></line>
+        <circle cx="525" cy="96" r="5"></circle><line x1="525" y1="101" x2="525" y2="140" stroke="currentColor" stroke-width="1" opacity="0.4"></line>
+      </g>
+      <text x="163" y="82" text-anchor="middle" font-size="11" fill="currentColor">1st</text>
+      <text x="287" y="82" text-anchor="middle" font-size="11" fill="currentColor">2nd</text>
+      <text x="411" y="82" text-anchor="middle" font-size="11" fill="currentColor">3rd</text>
+      <text x="525" y="82" text-anchor="middle" font-size="11" fill="currentColor">4th</text>
+
+      <!-- the final convergence -->
+      <circle cx="670" cy="96" r="7" fill="#10b9e6"></circle>
+      <line x1="670" y1="103" x2="670" y2="140" stroke="#10b9e6" stroke-width="2"></line>
+      <text x="670" y="80" text-anchor="middle" font-size="11.5" font-weight="700" fill="#10b9e6">5th</text>
+
+      <!-- the clock -->
+      <line x1="60" y1="140" x2="700" y2="140" stroke="currentColor" stroke-width="2" marker-end="url(#tf-tip)"></line>
+      <g font-size="10.5" fill="currentColor" opacity="0.55" text-anchor="middle">
+        <text x="60"  y="158">0</text>
+        <text x="267" y="158">20</text>
+        <text x="473" y="158">40</text>
+        <text x="670" y="158">59</text>
+      </g>
+
+      <!-- chain releases below -->
+      <g fill="currentColor" opacity="0.75">
+        <circle cx="184" cy="192" r="5"></circle><line x1="184" y1="187" x2="184" y2="140" stroke="currentColor" stroke-width="1" opacity="0.4"></line>
+        <circle cx="308" cy="192" r="5"></circle><line x1="308" y1="187" x2="308" y2="140" stroke="currentColor" stroke-width="1" opacity="0.4"></line>
+        <circle cx="432" cy="192" r="5"></circle><line x1="432" y1="187" x2="432" y2="140" stroke="currentColor" stroke-width="1" opacity="0.4"></line>
+        <circle cx="556" cy="192" r="5"></circle><line x1="556" y1="187" x2="556" y2="140" stroke="currentColor" stroke-width="1" opacity="0.4"></line>
+        <circle cx="628" cy="192" r="5"></circle><line x1="628" y1="187" x2="628" y2="140" stroke="currentColor" stroke-width="1" opacity="0.4"></line>
+      </g>
+      <text x="184" y="212" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">+1 ft</text>
+      <text x="308" y="212" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">+1 ft</text>
+      <text x="432" y="212" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">+1 ft</text>
+      <text x="556" y="212" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">+1 ft</text>
+      <text x="628" y="212" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">+1 ft</text>
+    </svg>
+    <figcaption>Two interleaved sequences, both throttled live by the cast. The chain lets out just after each discovery, so the room never gets easier and never becomes hopeless &mdash; and the final step lands with about a minute on the clock, whether or not the group deserves it. Every group leaves believing they were thirty seconds from the other outcome. That belief is the product.</figcaption>
+  </figure>
+</section>
+
+<div class="part">
+  <div class="wrap wrap--wide">
+    <p class="part-label">The reframe</p>
+    <h2>Stop paying rent to wait for customers</h2>
+    <p>The original paid $860 to $1,000 a month per city for a room that sat dark most of the week. Going pop-up deletes that line &mdash; and hands you three different problems.</p>
+  </div>
+</div>
+
+<section class="wrap wrap--wide">
+  <ul class="rules">
+    <li><strong>Rent becomes variable</strong><span>You pay a venue only for nights you are selling. In a permanent room every dark Tuesday is a cost. On a run there are no dark Tuesdays &mdash; you are not there.</span></li>
+    <li><strong>Scarcity becomes real</strong><span>The original faked urgency by releasing tickets exactly one month out at 12:30 in the morning. "Nine nights in Johnstown, then it's gone" needs no trick. It is simply true.</span></li>
+    <li><strong>Reputation stops accruing to a location &mdash; this is the bill</strong><span>A permanent room compounds reviews, search ranking and walk-past traffic for years. You rebuild awareness every run. The list you take with you is the only asset that compounds, which is why one brand, one ticketing site and one mailing list across every market is non-negotiable.</span></li>
+    <li><strong>And you re-permit every stop &mdash; this is the other bill</strong><span>Nine markets is nine fire marshals. Solved below, but never free.</span></li>
+  </ul>
+  <p style="margin-top:1.75rem;">The original booked <strong>$0 marketing</strong> in both Chicago and Columbus, because a room that has been open eighteen months markets itself. You do not have that luxury.</p>
 </section>
 
 <div class="part">
   <div class="wrap wrap--wide">
     <p class="part-label">The market</p>
     <h2>Johnstown is not the market. It is the address.</h2>
-    <p>23,265 people cannot fill 42 shows. But a town that sits twenty minutes from half a million of them, in the fastest-growing corridor in Colorado, is an excellent place to keep a trailer.</p>
+    <p>23,265 people cannot fill 42 shows. But a town twenty minutes from half a million of them, in the fastest-growing corridor in Colorado, is an excellent place to keep a trailer.</p>
   </div>
 </div>
 
 <section class="wrap wrap--wide">
   <div class="stat-row">
-    <div class="stat">
-      <span class="stat-num">23,265</span>
-      <p class="stat-label">Johnstown, 2026</p>
-    </div>
-    <div class="stat">
-      <span class="stat-num">+34<span class="unit">%</span></span>
-      <p class="stat-label">Growth since the 2020 census</p>
-    </div>
-    <div class="stat">
-      <span class="stat-num">385K</span>
-      <p class="stat-label">Weld County population</p>
-    </div>
-    <div class="stat">
-      <span class="stat-num">~500K</span>
-      <p class="stat-label">Within a 30-minute drive</p>
-    </div>
+    <div class="stat"><span class="stat-num">23,265</span><p class="stat-label">Johnstown, 2026</p></div>
+    <div class="stat"><span class="stat-num">+34<span class="unit">%</span></span><p class="stat-label">Growth since the 2020 census</p></div>
+    <div class="stat"><span class="stat-num">385K</span><p class="stat-label">Weld County population</p></div>
+    <div class="stat"><span class="stat-num">~500K</span><p class="stat-label">Within a 30-minute drive</p></div>
   </div>
 
   <figure>
-    <svg viewBox="0 0 760 600" role="img" aria-label="Schematic drive-time map centred on Johnstown, Colorado, showing three concentric rings at fifteen, thirty and forty-five minutes, with surrounding towns and their populations placed at their approximate compass bearings.">
+    <svg viewBox="0 0 760 600" role="img" aria-label="Schematic drive-time map centred on Johnstown, Colorado, with rings at fifteen, thirty and forty-five to sixty minutes, showing surrounding Front Range towns and their populations at approximate compass bearings.">
       <defs>
         <marker id="jr-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
           <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"></path>
         </marker>
       </defs>
-
-      <!-- rings -->
       <circle cx="380" cy="300" r="95"  fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"></circle>
       <circle cx="380" cy="300" r="180" fill="none" stroke="#10b9e6" stroke-width="2"></circle>
       <circle cx="380" cy="300" r="260" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4" opacity="0.45"></circle>
 
-      <!-- ring labels -->
       <text x="380" y="212" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.6" letter-spacing="1">15 MIN</text>
       <text x="380" y="127" text-anchor="middle" font-size="11.5" fill="#10b9e6" letter-spacing="1" font-weight="700">30 MIN &mdash; ~500,000 PEOPLE</text>
       <text x="380" y="47" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.6" letter-spacing="1">45&ndash;60 MIN</text>
 
-      <!-- centre -->
       <circle cx="380" cy="300" r="8" fill="#10b9e6"></circle>
       <text x="380" y="288" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">JOHNSTOWN</text>
       <text x="380" y="322" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.7">23,265 &mdash; home base</text>
 
-      <!-- inner ring towns -->
       <circle cx="430" cy="300" r="4.5" fill="currentColor"></circle>
       <text x="441" y="304" font-size="12" fill="currentColor">Milliken <tspan opacity="0.6">9K</tspan></text>
-
       <circle cx="300" cy="300" r="4.5" fill="currentColor"></circle>
       <text x="289" y="304" text-anchor="end" font-size="12" fill="currentColor">Loveland <tspan opacity="0.6">78K</tspan></text>
-
       <circle cx="311" cy="354" r="4.5" fill="currentColor"></circle>
       <text x="300" y="358" text-anchor="end" font-size="12" fill="currentColor">Berthoud <tspan opacity="0.6">11K</tspan></text>
-
       <circle cx="447" cy="226" r="4.5" fill="currentColor"></circle>
       <text x="458" y="230" font-size="12" fill="currentColor">Windsor <tspan opacity="0.6">33K</tspan></text>
-
-      <!-- middle ring towns -->
       <circle cx="497" cy="257" r="4.5" fill="currentColor"></circle>
       <text x="508" y="261" font-size="12" fill="currentColor">Greeley <tspan opacity="0.6">110K</tspan></text>
-
       <circle cx="322" cy="156" r="4.5" fill="currentColor"></circle>
       <text x="311" y="160" text-anchor="end" font-size="12" fill="currentColor">Fort Collins <tspan opacity="0.6">171K</tspan></text>
-
       <circle cx="314" cy="462" r="4.5" fill="currentColor"></circle>
       <text x="303" y="466" text-anchor="end" font-size="12" fill="currentColor">Longmont <tspan opacity="0.6">100K</tspan></text>
-
       <circle cx="407" cy="493" r="4.5" fill="currentColor"></circle>
       <text x="418" y="497" font-size="12" fill="currentColor">Erie <tspan opacity="0.6">35K</tspan></text>
 
-      <!-- outer ring -->
+      <circle cx="415" cy="330" r="3.5" fill="#10b9e6" opacity="0.8"></circle>
+      <text x="424" y="344" font-size="10.5" fill="#10b9e6" opacity="0.9">Mead &mdash; fall zone</text>
+
       <circle cx="138" cy="235" r="4.5" fill="currentColor" opacity="0.55"></circle>
       <text x="149" y="222" font-size="12" fill="currentColor" opacity="0.7">Estes Park</text>
       <text x="149" y="238" font-size="11" fill="currentColor" opacity="0.5">tourist season</text>
-
       <circle cx="380" cy="78" r="4.5" fill="currentColor" opacity="0.55"></circle>
       <text x="392" y="70" font-size="12" fill="currentColor" opacity="0.7">Cheyenne, WY</text>
       <text x="392" y="86" font-size="11" fill="currentColor" opacity="0.5">65K &mdash; stretch stop</text>
 
-      <!-- I-25 spine -->
       <line x1="352" y1="560" x2="352" y2="110" stroke="currentColor" stroke-width="1" opacity="0.28" marker-end="url(#jr-arrow)"></line>
       <text x="344" y="556" text-anchor="end" font-size="11" fill="currentColor" opacity="0.5" letter-spacing="1">I-25</text>
     </svg>
-    <figcaption>Every stop on the circuit sits inside an hour of the trailer's home base, and eight of them inside thirty minutes. The show never needs a second kit, a second cast pool, or an overnight stay to reach a market of roughly half a million people. Populations are 2026 estimates; drive times are approximate.</figcaption>
+    <figcaption>Eight markets inside thirty minutes of the trailer's home base &mdash; no second kit, no second cast pool, no overnight stays. The 1924 fall zone runs from Elwell through Johnstown and Milliken down to Mead, which is the first four stops of the circuit. Populations are 2026 estimates; drive times approximate.</figcaption>
   </figure>
 
-  <h4>Why this specific town</h4>
-  <p>Johnstown was the third-fastest-growing municipality in Colorado over 20,000 last year, in the county that led the state for population growth. It sits on I-25 at the Highway 34 and Highway 60 interchanges, which is why Buc-ee's built there and why the town has been picking up national "boomtown" coverage.</p>
-  <p>That matters for two reasons beyond civic pride. New arrivals have no established weekend habits and are actively looking for things to do. And a town growing at 3.7% a year has <strong>commercial space coming online faster than it fills</strong> &mdash; which is the entire venue strategy.</p>
+  <h4>Why this town</h4>
+  <p>Johnstown was the third-fastest-growing municipality in Colorado over 20,000 last year, in the county that led the state. It sits on I-25 at the Highway 34 and Highway 60 interchanges, which is why Buc-ee's built there and why the town keeps drawing national "boomtown" coverage. New arrivals have no established weekend habits. And a town growing 3.7% a year has commercial space coming online faster than it fills.</p>
 </section>
 
 <div class="part">
   <div class="wrap wrap--wide">
-    <p class="part-label">The venue</p>
-    <h2>Empty retail is the whole unlock</h2>
-    <p>You are not looking for a theatre. You are looking for a landlord with a dark bay and a leasing problem.</p>
+    <p class="part-label">Compliance</p>
+    <h2>The fire marshal decides this business, not the landlord</h2>
+    <p>This was the first draft's worst mistake. Get it right and it becomes a moat &mdash; most people who try this will not read the code.</p>
   </div>
 </div>
 
 <section class="wrap wrap--wide">
-  <p class="lede">Ledge Rock Center is a 200-acre mixed-use development on I-25 at Highway 60 in Johnstown, with over a million square feet of retail planned and more than a thousand apartments already around it. Developments at that stage always have unleased bays, and unleased bays are a landlord's problem, not yours.</p>
+  <p class="lede">A room where people are confined and solve puzzles is a <strong>special amusement building</strong> under NFPA 101 and IBC/IFC Section 411. It takes assembly-occupancy provisions <em>regardless of how few people are inside</em>. Twelve guests does not exempt you.</p>
 
-  <p>The pitch writes itself: <em>give me a dark unit for three weeks, and I will walk four hundred people through your center on the nights your restaurants need them.</em> You are not a tenant asking for terms. You are foot traffic asking for a key.</p>
+  <p>That means, at minimum: an approved automatic smoke detection system if you operate under reduced lighting; emergency illumination along every egress path good for ninety minutes; and exits that <strong>never</strong> require a tool, a key, or the solving of a puzzle to open. Any electronic lock has to release from the egress side and fail open on power loss.</p>
+
+  <p>Dropping this into a vacant retail bay is a <em>change of occupancy</em> &mdash; retail to assembly &mdash; which triggers a new certificate of occupancy whether or not you touch a single wall. That is not a three-week conversation. Repeated nine times a year, it is the business.</p>
+
+  <h4>Which is why the venue order inverts</h4>
+  <p>The first draft led with vacant retail. Wrong. Lead with rooms that are <strong>already classified for assembly</strong>, already sprinklered, already inspected, already carrying a certificate. You are then a temporary event inside a compliant building rather than an occupancy change.</p>
 
   <div class="cards">
     <div class="card">
-      <p class="tag">First call</p>
+      <p class="tag">First call &mdash; already compliant</p>
+      <h5>Event &amp; wedding venues</h5>
+      <p>Over a hundred are listed around Johnstown. Already assembly-rated with egress, sprinklers and a fire file. Every one has dead Thursday inventory it will never sell. Revenue share beats a flat fee &mdash; they lose nothing by saying yes.</p>
+    </div>
+    <div class="card">
+      <p class="tag">Second call &mdash; already compliant</p>
+      <h5>Brewery taprooms &amp; halls</h5>
+      <p>Local taprooms run private events to around 75. Smaller footprint, but assembly-classified, and they keep the bar while you keep the door. Their mailing list becomes your marketing at no cost.</p>
+    </div>
+    <div class="card">
+      <p class="tag">Third call &mdash; needs work</p>
       <h5>Vacant retail bay</h5>
-      <p>Ledge Rock Center and the 2534 development. Ask for a licence agreement, not a lease &mdash; three weeks, a flat fee or free in exchange for traffic, and a certificate of insurance. Needs ~1,200 sq ft, a bathroom, and power.</p>
-    </div>
-    <div class="card">
-      <p class="tag">Second call</p>
-      <h5>Wedding &amp; event venues</h5>
-      <p>Over a hundred are listed in and around Johnstown. Every one of them has dead Thursday inventory it will never sell. Revenue share beats a flat fee here &mdash; they are not losing anything by saying yes.</p>
-    </div>
-    <div class="card">
-      <p class="tag">Third call</p>
-      <h5>Brewery taprooms</h5>
-      <p>Local taprooms run private events up to about 75 people. Smaller footprint, but they keep the bar and you keep the door &mdash; and their mailing list becomes your marketing for free.</p>
+      <p>Ledge Rock Center and 2534 have unleased space and landlords who want foot traffic. Genuinely cheap &mdash; but budget for a temporary-use permit, a fire official walkthrough, and possibly a change-of-occupancy review. Only worth it for a long or repeat run.</p>
     </div>
     <div class="card">
       <p class="tag">The beachhead</p>
       <h5>BBQ Day, first Saturday in June</h5>
-      <p>A hundred-plus-year-old town festival in Parish Park with a formal sponsorship program, a parade and a car show. Do not run the show. Run a fifteen-minute taster, collect emails all day, and sell the September run off that list.</p>
+      <p>A century-old town festival in Parish Park with a formal sponsorship programme, parade and car show. Do not run the show. Run a fifteen-minute outdoor taster, collect emails all day, sell the September run off that list.</p>
     </div>
+  </div>
+
+  <div class="amend">
+    <h4>Turn the constraint into the pitch</h4>
+    <p>Design the show so the door is <em>never locked</em> &mdash; the guide holds the release, anyone can leave at any second, and there is no puzzle between a guest and the exit. The original already worked this way with a key on the guide's clipboard. Now say it out loud in the marketing. "You are never locked in" removes the single biggest objection from claustrophobic guests, nervous parents and corporate HR &mdash; and it happens to be exactly what the code demands.</p>
   </div>
 </section>
 
@@ -434,7 +388,7 @@
   <div class="wrap wrap--wide">
     <p class="part-label">The circuit</p>
     <h2>Nine runs, one trailer</h2>
-    <p>Set up two days, play nine nights across three weekends, strike in one. About twenty-four days a market, then twenty minutes down the road to a market that has never seen it.</p>
+    <p>Two days in, nine nights across three weekends, one day out. About twenty-four days a market, then twenty minutes down the road to a market that has never seen it.</p>
   </div>
 </div>
 
@@ -442,87 +396,94 @@
   <div class="table-scroll">
     <table>
       <caption>Proposed first-year circuit</caption>
-      <thead>
-        <tr><th scope="col">Month</th><th scope="col">Market</th><th scope="col">Why then</th></tr>
-      </thead>
+      <thead><tr><th scope="col">Month</th><th scope="col">Market</th><th scope="col">Why then</th></tr></thead>
       <tbody>
-        <tr><th scope="row">September</th><td>Johnstown</td><td style="text-align:left;white-space:normal">Home base. Shortest logistics, friendliest landlord, fix everything here.</td></tr>
-        <tr><th scope="row">October</th><td>Loveland</td><td style="text-align:left;white-space:normal">Halloween. Extend to four weekends and price up &mdash; this is the year's peak.</td></tr>
-        <tr><th scope="row">November</th><td>Greeley</td><td style="text-align:left;white-space:normal">Corporate holiday-party season. Sell buyouts, not tickets.</td></tr>
-        <tr><th scope="row">January</th><td>Fort Collins</td><td style="text-align:left;white-space:normal">Largest market, worst weather, best indoor-activity demand.</td></tr>
-        <tr><th scope="row">February</th><td>Windsor</td><td style="text-align:left;white-space:normal">Date-night positioning. Two-seat sales are fine in a small market.</td></tr>
-        <tr><th scope="row">March</th><td>Longmont</td><td style="text-align:left;white-space:normal">Southern edge of the circuit; tests whether the brand travels past the corridor.</td></tr>
-        <tr><th scope="row">April</th><td>Berthoud + Milliken</td><td style="text-align:left;white-space:normal">One run, two towns' worth of audience. Small-market combination test.</td></tr>
-        <tr><th scope="row">June</th><td>Johnstown (return)</td><td style="text-align:left;white-space:normal">BBQ Day activation, then a second run to the list you built in September.</td></tr>
-        <tr><th scope="row">July</th><td>Estes Park</td><td style="text-align:left;white-space:normal">Peak tourist season. Highest prices of the year, zero repeat business.</td></tr>
-        <tr class="row-total"><th scope="row">Stretch</th><td>Cheyenne, WY</td><td style="text-align:left;white-space:normal">August. Adds a state, and a second market you already have a playbook for.</td></tr>
+        <tr><th scope="row">September</th><td>Johnstown</td><td class="free">Home base and the story's home. Shortest logistics, friendliest landlord, fix everything here.</td></tr>
+        <tr><th scope="row">October</th><td>Loveland</td><td class="free">Halloween. Extend to four weekends and price up &mdash; this is the year's peak by a distance.</td></tr>
+        <tr><th scope="row">November</th><td>Greeley</td><td class="free">Corporate holiday-party season. Sell buyouts, not tickets.</td></tr>
+        <tr><th scope="row">January</th><td>Fort Collins</td><td class="free">Largest market, worst weather, best indoor-activity demand. Budget snow days into the schedule.</td></tr>
+        <tr><th scope="row">February</th><td>Windsor</td><td class="free">Date-night positioning. Two-seat sales are acceptable in a small market.</td></tr>
+        <tr><th scope="row">March</th><td>Longmont</td><td class="free">Southern edge. Tests whether the brand travels past the corridor and past the local legend.</td></tr>
+        <tr><th scope="row">April</th><td>Mead + Milliken</td><td class="free">One run, two towns, both inside the 1924 fall zone. The "it landed here too" campaign.</td></tr>
+        <tr><th scope="row">June</th><td>Johnstown (return)</td><td class="free">BBQ Day taster, then a second run sold to the list built in September.</td></tr>
+        <tr><th scope="row">July</th><td>Estes Park</td><td class="free">Walk-up tourist market. <strong>Public-led by nature</strong> &mdash; price at $59 and treat it as a marketing spend that breaks even, not a profit stop.</td></tr>
+        <tr class="row-total"><th scope="row">Stretch</th><td>Cheyenne, WY</td><td class="free">August. Adds a state &mdash; and a second registration, tax licence and insurance rider. Not free.</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="figure-note">May and December are deliberately empty &mdash; graduation season and the holidays are the two windows where nobody books an evening activity.</p>
+  <p class="figure-note">May and December stay empty. Graduation season and the holidays are the two windows where nobody books an evening activity.</p>
 
   <h4>Come back with a different show, not the same one</h4>
-  <p>The original never solved repeat business. Its answer was a $10 ticket to come back and watch your friends, which is clever but small. A circuit solves it properly: a market that saw the show in September is a warm list in June, provided what you bring back is <em>new</em>. The original ran a second production, "Still Hungry," in two of its cities for exactly this reason. Build the second show in year two.</p>
+  <p>The original never solved repeat business; its answer was a $10 ticket to return and watch your friends, which is clever but small. A circuit solves it properly &mdash; a market that saw the show in September is a warm list in June, <em>provided what you bring back is new</em>. The original ran a second production in two of its cities for exactly this reason. Build show two in year two.</p>
 </section>
 
 <div class="part">
   <div class="wrap wrap--wide">
     <p class="part-label">The money</p>
     <h2>Same forty-two shows, three very different years</h2>
-    <p>The cast is paid per show, never per head. Which means the mix of who is buying &mdash; not how many nights you play &mdash; decides whether this is a job or a business.</p>
+    <p>The cast is paid per show, never per head. The mix of who is buying &mdash; not how many nights you play &mdash; decides whether this is a job or a business.</p>
   </div>
 </div>
 
 <section class="wrap wrap--wide">
-  <p>Every scenario below is the <strong>same nine-night run</strong>: 42 shows, same venue, same cast, same marketing budget. The only variable is what is being sold.</p>
+  <p>Each column is the <strong>same nine-night run</strong>: 42 shows, same venue, same cast, same marketing. Only the mix changes. Sales tax is excluded throughout &mdash; it is collected and remitted, not income.</p>
 
   <div class="table-scroll">
     <table>
       <caption>One 9-night run &mdash; 42 shows &mdash; modelled three ways</caption>
       <thead>
-        <tr>
-          <th scope="col">Line</th>
-          <th scope="col">Public-led</th>
-          <th scope="col">Mixed</th>
-          <th scope="col">Buyout-led</th>
-        </tr>
+        <tr><th scope="col">Line</th><th scope="col">Public-led</th><th scope="col">Mixed</th><th scope="col">Buyout-led</th></tr>
       </thead>
       <tbody>
-        <tr><th scope="row">Corporate bookings @ $625</th><td>&mdash;</td><td>10</td><td>14</td></tr>
+        <tr class="row-sub"><th scope="row" colspan="4">Mix</th></tr>
+        <tr><th scope="row">Corporate @ $625</th><td>&mdash;</td><td>10</td><td>14</td></tr>
         <tr><th scope="row">Room buyouts @ $480</th><td>&mdash;</td><td>14</td><td>20</td></tr>
         <tr><th scope="row">Public shows @ $45/seat</th><td>42</td><td>18</td><td>8</td></tr>
         <tr><th scope="row">Average public load</th><td>7.2 / 12</td><td>8 / 12</td><td>9 / 12</td></tr>
         <tr><th scope="row">Participants</th><td>302</td><td>432</td><td>480</td></tr>
-        <tr><th scope="row">Revenue</th><td>$13,590</td><td>$19,450</td><td>$21,590</td></tr>
+
+        <tr class="row-sub"><th scope="row" colspan="4">Revenue</th></tr>
+        <tr><th scope="row">Tickets</th><td>$13,590</td><td>$19,450</td><td>$21,590</td></tr>
+        <tr><th scope="row">Photos &amp; merchandise</th><td>$2,370</td><td>$3,390</td><td>$3,770</td></tr>
+        <tr class="row-total"><th scope="row">Total revenue</th><td>$15,960</td><td>$22,840</td><td>$25,360</td></tr>
+
+        <tr class="row-sub"><th scope="row" colspan="4">Costs</th></tr>
         <tr><th scope="row">Cast (42 &times; $135)</th><td>$5,670</td><td>$5,670</td><td>$5,670</td></tr>
         <tr><th scope="row">Venue (3 weeks)</th><td>$3,000</td><td>$3,000</td><td>$3,000</td></tr>
         <tr><th scope="row">Marketing</th><td>$1,800</td><td>$1,800</td><td>$1,800</td></tr>
+        <tr><th scope="row">Booking commission (10%)</th><td>&mdash;</td><td>$1,300</td><td>$1,835</td></tr>
+        <tr><th scope="row">Photo &amp; merch cost of goods</th><td>$830</td><td>$1,190</td><td>$1,320</td></tr>
+        <tr><th scope="row">Card &amp; ticketing fees</th><td>$718</td><td>$1,026</td><td>$1,140</td></tr>
         <tr><th scope="row">Truck, set-up, strike</th><td>$900</td><td>$900</td><td>$900</td></tr>
-        <tr><th scope="row">Event insurance</th><td>$400</td><td>$400</td><td>$400</td></tr>
-        <tr><th scope="row">Card &amp; ticketing fees</th><td>$647</td><td>$925</td><td>$1,027</td></tr>
-        <tr class="row-total"><th scope="row">Total cost</th><td>$12,417</td><td>$12,695</td><td>$12,797</td></tr>
-        <tr class="row-total"><th scope="row">Profit per run</th><td class="neg">$1,173</td><td class="pos">$6,755</td><td class="pos">$8,793</td></tr>
-        <tr class="row-total"><th scope="row">Margin</th><td class="neg">8.6%</td><td class="pos">34.7%</td><td class="pos">40.7%</td></tr>
-        <tr class="row-total"><th scope="row">Nine runs a year</th><td class="neg">$10,557</td><td class="pos">$60,795</td><td class="pos">$79,137</td></tr>
+        <tr><th scope="row">Permits &amp; fire inspection</th><td>$350</td><td>$350</td><td>$350</td></tr>
+        <tr><th scope="row">Insurance (allocated)</th><td>$400</td><td>$400</td><td>$400</td></tr>
+        <tr class="row-total"><th scope="row">Total cost</th><td>$13,668</td><td>$15,636</td><td>$16,415</td></tr>
+
+        <tr class="row-sub"><th scope="row" colspan="4">Result</th></tr>
+        <tr class="row-total"><th scope="row">Profit per run</th><td class="neg">$2,292</td><td class="pos">$7,204</td><td class="pos">$8,945</td></tr>
+        <tr class="row-total"><th scope="row">Margin</th><td class="neg">14.4%</td><td class="pos">31.5%</td><td class="pos">35.3%</td></tr>
+        <tr class="row-total"><th scope="row">Nine runs a year</th><td class="neg">$20,628</td><td class="pos">$64,836</td><td class="pos">$80,505</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="figure-note">A model with stated assumptions, not a forecast. Cast rate uplifted from the original's $25 host / $30 performer to $60 / $75 for the current Colorado contractor market. Ticket pricing sits at the top of the observed $30&ndash;$40 Front Range band, on the basis that a live-actor show on a limited run is not a standard puzzle room.</p>
+  <p class="figure-note">A model with stated assumptions, not a forecast. Cast uplifted from the original's $25 host / $30 performer to $60 / $75 for the current Colorado contractor market. Tickets sit at the top of the observed $30&ndash;$40 Front Range band on the basis that a live-actor show on a limited run is not a standard puzzle room. Ancillary assumes 30% of guests buy a $15 photo and 12% buy a $28 shirt, at 35% cost of goods.</p>
 
-  <h4>This is the same gap the original lived through</h4>
-  <p>In May 2014 the original ran the identical production in two cities in the same month. Chicago cleared a 58.6% margin. Columbus cleared 21.3%. Columbus took <em>more</em> transactions to serve <em>fewer</em> people &mdash; 1.5 heads per sale against Chicago's 3.07 &mdash; because it was selling discounted seats to individuals while Chicago was selling whole rooms to groups.</p>
-  <p>The public-led column above is Columbus. The buyout-led column is Chicago. Twelve years and a trailer later, it is still the only number that decides the outcome: <strong>sell rooms, not seats.</strong></p>
+  <h4>Two things this table now says that the first draft could not</h4>
+  <p><strong>The merchandise table pays for the booker and the permits.</strong> Adding photos and shirts brought in $3,390 in the mixed case; the booking commission, cost of goods and permits together took out $2,840. The ancillary line funds the entire back office the first draft had forgotten to staff, and leaves $550 on top.</p>
+  <p><strong>Merchandise narrows the gap between the columns but does not close it.</strong> The weak column improved from an $11,000 year to a $21,000 one, because photos sell per head and public shows still have heads. It is still less than a third of the mixed case. Selling seats instead of rooms is survivable now. It is still the wrong business.</p>
 
   <div class="stat-row">
     <div class="stat"><span class="stat-num">$135</span><p class="stat-label">Cast cost per show, any audience size</p></div>
     <div class="stat"><span class="stat-num">$540</span><p class="stat-label">A full room at list price</p></div>
     <div class="stat"><span class="stat-num">$0</span><p class="stat-label">Saved by running a half-empty show</p></div>
   </div>
+
+  <p>In May 2014 the original ran the identical production in two cities in the same month. Chicago cleared 58.6%. Columbus cleared 21.3% &mdash; taking <em>more</em> transactions to serve <em>fewer</em> people, 1.5 heads per sale against Chicago's 3.07, because it sold discounted seats to individuals while Chicago sold whole rooms to groups. Twelve years and a trailer later it is still the only number that decides the outcome: <strong>sell rooms, not seats.</strong></p>
 </section>
 
 <section class="wrap wrap--wide">
-  <p class="eyebrow">Getting started</p>
-  <h3>What it costs to own the trailer</h3>
+  <p class="eyebrow">Capital</p>
+  <h3>What it costs to get to opening night</h3>
 
   <div class="table-scroll">
     <table>
@@ -531,24 +492,29 @@
       <tbody>
         <tr><th scope="row">Set build &mdash; furniture, cabinetry, locks, props</th><td>$8,000</td><td>$15,000</td></tr>
         <tr><th scope="row">Enclosed 16&prime; trailer, used</th><td>$6,000</td><td>$9,000</td></tr>
+        <tr><th scope="row">Life safety &mdash; emergency lighting, detection, exit signage</th><td>$1,500</td><td>$3,000</td></tr>
         <tr><th scope="row">Timer, buzzer, lighting, sound</th><td>$800</td><td>$1,400</td></tr>
         <tr><th scope="row">Lobby kit, signage, camera, name tags</th><td>$600</td><td>$1,000</td></tr>
         <tr><th scope="row">Costume &amp; makeup, three sets</th><td>$900</td><td>$1,400</td></tr>
-        <tr><th scope="row">Entity, contracts, waivers, annual insurance</th><td>$2,500</td><td>$3,500</td></tr>
+        <tr><th scope="row">Opening photo &amp; merchandise inventory</th><td>$1,200</td><td>$2,500</td></tr>
+        <tr><th scope="row">Entity, contracts, waivers, tax licences, first-year insurance</th><td>$2,500</td><td>$3,500</td></tr>
         <tr><th scope="row">Brand, site, ticketing setup</th><td>$1,500</td><td>$3,000</td></tr>
-        <tr class="row-total"><th scope="row">Total</th><td>$20,300</td><td>$34,300</td></tr>
+        <tr class="row-total"><th scope="row">Total build</th><td>$23,000</td><td>$39,800</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="figure-note">A permanent escape-room build-out in this market starts around $50,000 and runs well past six figures once you sign a lease. The trailer is the cheap half of the idea.</p>
-  <p style="margin-top:1.5rem;">At the mixed case, the build pays for itself in three runs if you come in at the low end and five if you come in at the high &mdash; somewhere between the Greeley and Windsor stops. Build cheap and that is the difference between paying it off by Christmas and paying it off in February.</p>
+
+  <h4>The number that actually matters is the trough</h4>
+  <p>The build is spent across roughly three months with no revenue behind it. Corporate deposits are the only thing arriving early &mdash; ten slots at 50% down is $3,125 before load-in. Add one run's operating float of about $15,600 and <strong>peak cash requirement lands near $36,000 at the low build and $52,000 at the high one</strong>, somewhere around week ten.</p>
+  <p>At the mixed case each run returns $7,204, so cumulative breakeven falls between the fifth and eighth run &mdash; Windsor in February at best, Johnstown's June return at worst. <strong>Build cheap.</strong> Every dollar saved on the set is a month earlier to breakeven, and the set is the one line where a dollar saved costs nothing the audience can see.</p>
+  <p class="figure-note">For comparison: a permanent escape-room build-out in this market starts around $50,000 and runs well past six figures once a lease is signed. The trailer is the cheap half of the idea.</p>
 </section>
 
 <div class="part">
   <div class="wrap wrap--wide">
     <p class="part-label">The playbook</p>
     <h2>What carries over, and what has to be rebuilt</h2>
-    <p>Most of the operating manual survives a move to pop-up untouched. A short list does not, and those are the ones that will hurt.</p>
+    <p>Most of the archive survives the move to pop-up untouched. A short list does not, and those are the ones that will hurt.</p>
   </div>
 </div>
 
@@ -556,19 +522,20 @@
   <h4 style="margin-top:0">Carries over unchanged</h4>
   <ul class="rules keep">
     <li><strong>The 2h20 turn</strong><span>Guests in at :10, doors close at :45, sixty-minute show, curtain call, room reset while the group is still inside, next group at :10. Ten minutes of slack, which is why the reset is choreographed rather than tidied.</span></li>
-    <li><strong>Two roles, secretly one</strong><span>A silent guide and a performer, both working the same hidden objective: land every group about a minute from the other outcome. $60 and $75 a show.</span></li>
-    <li><strong>The curtain call</strong><span>Name every guest for something specific, rank them favourably against past groups, photos with both the win sign and the loss sign, and ask for the referral in the room. This is what sells the next ticket, and most groups do not escape.</span></li>
-    <li><strong>The non-negotiables</strong><span>No waiver, no entry. The exit key never leaves the guide's clipboard. Injury stops the show. Never move the clues. Contact is theatre, never force. Refund the unhappy guest regardless of policy.</span></li>
+    <li><strong>Two roles, secretly one</strong><span>A silent guide and a constrained performer, both working the hidden objective in the diagram above. $60 and $75 a show.</span></li>
+    <li><strong>The curtain call</strong><span>Name every guest for something specific, rank them favourably against past groups, photos with both the win sign and the loss sign, referral asked for in the room. Most groups do not escape; this is what converts a loss into a story worth repeating.</span></li>
+    <li><strong>The non-negotiables</strong><span>No waiver, no entry. The release never leaves the guide's hand. Injury stops the show. Never move the clues. Contact is theatre, never force. Refund the unhappy guest regardless of policy.</span></li>
     <li><strong>The audition-show hire</strong><span>Open a market by running the real show for candidates, hire four, and call everyone else personally onto a ranked understudy bench before you leave town.</span></li>
   </ul>
 
   <h4>Has to be rebuilt</h4>
   <ul class="rules change">
-    <li><strong>The packing rules become the weekly discipline</strong><span>The original's Los Angeles opening report is a catalogue of one bad weekend: furniture shipped unsecured and arrived broken, clues packed loose inside the furniture, fixtures nobody could match, mould on a cabinet, three clues printed wrong and shipped anyway. That was a one-time embarrassment for a permanent install. You will pack and unpack nine times a year. <em>That list is now your load-out checklist,</em> and it is the most valuable page in the archive.</span></li>
-    <li><strong>Cast: a touring core plus a local bench</strong><span>Two travelling performers keep quality consistent across markets. Run the audition show in each new town anyway and build a local understudy list &mdash; illness twenty minutes from home is survivable, illness in Estes Park is not.</span></li>
-    <li><strong>One brand, one ticketing site, every run</strong><span>Reviews and search ranking have to accrue somewhere. If each market gets its own page, you start from zero nine times a year. The show is the brand; the town is just this month's dateline.</span></li>
-    <li><strong>Marketing is now a real line item</strong><span>$1,800 a run in the model. The original spent nothing because permanent rooms coast. You do not have that luxury and pretending otherwise is how the public-led column happens.</span></li>
-    <li><strong>Sell the run before you open it</strong><span>Corporate and buyout bookings have to be closed <em>before</em> load-in, not during. A room sold on week three at a discount is worth less than the same room sold in advance at list, and the cast cost is identical either way.</span></li>
+    <li><strong>The story, from scratch and owned outright</strong><span>The Fall, above. The mechanism is a format; the script, characters and puzzles have to be ours.</span></li>
+    <li><strong>The packing rules become the weekly discipline</strong><span>The original's Los Angeles opening report is a catalogue of one bad weekend &mdash; furniture shipped unsecured and broken, clues packed loose inside the furniture, fixtures nobody could match, mould on a cabinet, three clues printed wrong and shipped anyway. That was a one-time embarrassment for a permanent install. You load out nine times a year. <em>That list is now the checklist,</em> and it is the most valuable page in the archive.</span></li>
+    <li><strong>Cast: a touring core plus a local bench</strong><span>Two travelling performers hold quality across markets. Run the audition show in each new town anyway and build a local understudy list &mdash; illness twenty minutes from home is survivable, illness in Estes Park is not.</span></li>
+    <li><strong>One brand, one site, one list, every run</strong><span>Reviews and ranking have to accrue somewhere. Give each market its own page and you start from zero nine times a year. The show is the brand; the town is this month's dateline.</span></li>
+    <li><strong>A compliance pack that travels</strong><span>Certificate of insurance, waivers, life-safety plan, egress diagram, special-event tax licence, and last month's fire sign-off in one folder. Walk into every jurisdiction with the answers already printed. This is also what makes a landlord say yes in one meeting instead of three.</span></li>
+    <li><strong>Sell the run before you open it</strong><span>Corporate and buyout bookings close <em>before</em> load-in, not during. A room sold in week three at a discount is worth less than the same room sold in advance at list, and the cast costs the same either way.</span></li>
   </ul>
 </section>
 
@@ -577,43 +544,51 @@
   <h3>The first ninety days</h3>
 
   <div class="cue">
-    <div class="cue-time">Weeks<br>1&ndash;3</div>
+    <div class="cue-time">Weeks<br>1&ndash;2</div>
     <div class="cue-body">
-      <h5>Prove the venue before you build the set</h5>
-      <p>One conversation with Ledge Rock Center leasing and two with local event venues. If nobody will hand over a dark bay for three weeks, the entire model is wrong and you have spent nothing finding out. Do this first.</p>
+      <h5>Ask the fire marshal before you ask the landlord</h5>
+      <p>One conversation with the Johnstown building department and the fire authority, describing the show honestly, before a dollar is committed. If the answer is that every stop needs a change-of-occupancy review, the venue strategy changes and you have spent nothing finding out. This is the cheapest question in the whole plan and the first draft did not ask it.</p>
+    </div>
+  </div>
+  <div class="cue">
+    <div class="cue-time">Weeks<br>2&ndash;4</div>
+    <div class="cue-body">
+      <h5>Lock the story and the partner</h5>
+      <p>Sit down with the Johnstown Historical Society and the Parish House Museum. Bring them in as a partner with a stake, not as a footnote &mdash; their blessing is what turns a haunt into a local event, and their objection is what turns it into a problem.</p>
     </div>
   </div>
   <div class="cue">
     <div class="cue-time">Weeks<br>3&ndash;6</div>
     <div class="cue-body">
-      <h5>Presell the corporate slots</h5>
-      <p>Ten bookings at $625 is $6,250 before a single board is cut. Weld County's employers, the Johnstown and Loveland chambers, and the school districts are the list. If you cannot sell ten, the mixed case is not real and you should know that now.</p>
+      <h5>Presell ten corporate slots</h5>
+      <p>$6,250 before a single board is cut, and the proof that the mixed case is real. Weld County's employers, the Johnstown and Loveland chambers, and the school districts are the list. If ten will not close, the model is the weak column and you should know now.</p>
     </div>
   </div>
   <div class="cue">
     <div class="cue-time">Weeks<br>6&ndash;11</div>
     <div class="cue-body">
-      <h5>Build the set and the trailer to the packing rules</h5>
-      <p>Every piece secured, every clue in its own labelled box, every fixture taped to the furniture it belongs to. Build for the ninth load-out, not the first.</p>
+      <h5>Build to the packing rules, not to opening night</h5>
+      <p>Every piece secured, every clue in a labelled box, every fixture taped to the furniture it belongs to, life-safety kit installed and tested. Build for the ninth load-out.</p>
     </div>
   </div>
   <div class="cue">
     <div class="cue-time">Week<br>12</div>
     <div class="cue-body">
       <h5>Audition weekend, then open</h5>
-      <p>Three audition shows across a weekend, four hired, the rest ranked as understudies. The original went from arriving in an empty room to a trained opening team in three and a half days.</p>
+      <p>Three audition shows across a weekend, four hired, the rest ranked as understudies. The original went from an empty room to a trained opening team in three and a half days.</p>
     </div>
   </div>
 </section>
 
 <section class="wrap wrap--wide">
   <p class="eyebrow">Honestly</p>
-  <h3>Four things that could sink this</h3>
+  <h3>What could still sink this</h3>
   <ul class="plain">
-    <li><strong>Northern Colorado already has escape rooms.</strong> Fort Collins, Loveland and Greeley each have several established operators with years of reviews. The defence is that this is not a puzzle room &mdash; it is a live performance on a limited run &mdash; but that distinction has to be obvious in every piece of marketing or you are just a more expensive version of what is already there.</li>
+    <li><strong>A jurisdiction says no.</strong> Everything rests on being a temporary event inside an already-compliant building. If a fire authority insists on a full change-of-occupancy review per stop, the circuit slows to three or four runs a year and the economics halve. Test it in week one.</li>
+    <li><strong>The weak column is the default, not the worst case.</strong> Selling individual tickets is easier than selling buyouts, so it is what happens if nobody is deliberately pushing the other way. Twenty-one thousand a year for full-time work.</li>
+    <li><strong>Northern Colorado already has escape rooms.</strong> Fort Collins, Loveland and Greeley each have several established operators with years of reviews. The defence is that this is a live performance on a limited run with a story the town already half-knows &mdash; but that has to be obvious in every piece of marketing, or you are a more expensive version of what is already there.</li>
     <li><strong>Nine load-ins a year is physically hard.</strong> The model assumes the same two people tour all year. Build the local bench early and treat burnout as a scheduling problem, not a character flaw.</li>
-    <li><strong>The venue could say no.</strong> Everything rests on cheap temporary space. Test it in weeks one to three, before any money is committed.</li>
-    <li><strong>The public-led column is the default outcome, not the worst case.</strong> Selling individual tickets is easier than selling buyouts, so it is what happens if nobody is deliberately pushing the other way. That column is an $11,000 year for full-time work.</li>
+    <li><strong>The story could be too small to travel.</strong> The meteorite is a gift in Johnstown, Milliken and Mead. In Longmont it is a curiosity. Watch the March numbers closely &mdash; that stop exists to answer this question.</li>
   </ul>
 </section>
 
@@ -621,8 +596,8 @@
   <div class="wrap wrap--wide">
     <p class="wordmark">SCHREIER GROUP</p>
     <hr>
-    <p><strong>Sources.</strong> Operating detail, cast rates and the Chicago&ndash;Columbus margin comparison are taken from the 2014&ndash;15 archive of a live-actor immersive production that ran in sixteen locations &mdash; its cast and producer manuals, the executive producer's monthly closes, and the Los Angeles opening report. Market figures are 2026 estimates from public reporting on Colorado population growth; venue, festival and competitor detail is from public listings. Drive times are approximate.</p>
-    <p><strong>The financials are a model, not a forecast.</strong> Ticket pricing, the cast-rate uplift, venue cost and marketing spend are assumptions, labelled where they appear. The three scenarios exist to show which variable matters, not to predict a number.</p>
+    <p><strong>Sources.</strong> Operating detail, cast rates and the Chicago&ndash;Columbus comparison come from the 2014&ndash;15 archive of a live-actor immersive production that ran in sixteen locations &mdash; its cast and producer manuals, the executive producer's monthly closes, and the Los Angeles opening report. The 1924 meteorite account is drawn from public reporting and the Johnstown Historical Society's published history. Population figures are 2026 estimates from public reporting; life-safety requirements are summarised from NFPA 101 and IBC/IFC Section 411 as reported in industry guidance. Drive times are approximate.</p>
+    <p><strong>Verify before committing.</strong> Occupancy classification, permit path and the taxability of admissions are jurisdiction-specific and are summarised here from secondary sources. Confirm all three with the Johnstown building department, the local fire authority and the Colorado Department of Revenue before spending money. The financials are a model with stated assumptions, not a forecast.</p>
     <hr>
     <p>Prepared by Schreier Group LLC &nbsp;·&nbsp; schreiergroup.com</p>
   </div>
