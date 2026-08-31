@@ -1,0 +1,727 @@
+<title>The Experience Venue Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap">
+
+<style>
+  :root {
+    --ground:      #f5f3ef;
+    --ground-2:    #eceae3;
+    --text:        #1a1a18;
+    --text-2:      #5c5952;
+    --rule:        #ddd6c9;
+    --rule-soft:   #e7e2d8;
+    --cyan:        #10b9e6;
+    --cyan-ink:    #0a7590;
+    --good:        #3d7a58;
+    --band:        #0e0e0e;
+    --band-text:   #f5f3ef;
+    --band-text-2: #a29e96;
+    --band-rule:   #2c2c29;
+
+    --display: "Bebas Neue", "Oswald", "Arial Narrow", sans-serif;
+    --body: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+    --col: 68ch;
+    --pad: clamp(1.25rem, 5vw, 3.5rem);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:      #131311;
+      --ground-2:    #1c1c19;
+      --text:        #ece8e0;
+      --text-2:      #9d998f;
+      --rule:        #2e2d29;
+      --rule-soft:   #232320;
+      --cyan:        #10b9e6;
+      --cyan-ink:    #55d2f4;
+      --good:        #6fbf92;
+      --band:        #0a0a09;
+      --band-text:   #f5f3ef;
+      --band-text-2: #8b877f;
+      --band-rule:   #262624;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:      #131311;
+    --ground-2:    #1c1c19;
+    --text:        #ece8e0;
+    --text-2:      #9d998f;
+    --rule:        #2e2d29;
+    --rule-soft:   #232320;
+    --cyan:        #10b9e6;
+    --cyan-ink:    #55d2f4;
+    --good:        #6fbf92;
+    --band:        #0a0a09;
+    --band-text:   #f5f3ef;
+    --band-text-2: #8b877f;
+    --band-rule:   #262624;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: var(--col);
+    margin-inline: auto;
+    padding-inline: var(--pad);
+  }
+  .wrap--wide { max-width: 88ch; }
+
+  /* ---------- masthead ---------- */
+
+  .masthead {
+    background: var(--band);
+    color: var(--band-text);
+    border-bottom: 4px solid var(--cyan);
+    padding-block: clamp(1.6rem, 4vw, 2.4rem);
+  }
+  .wordmark {
+    font-family: var(--body);
+    font-weight: 700;
+    font-size: clamp(1rem, 2.4vw, 1.3rem);
+    letter-spacing: 0.22em;
+    margin: 0;
+  }
+  .wordmark-sub {
+    font-size: 0.66rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--band-text-2);
+    margin: 0.55rem 0 0;
+  }
+
+  /* ---------- title block ---------- */
+
+  .title-block {
+    padding-block: clamp(3rem, 9vw, 6rem) clamp(2rem, 5vw, 3.25rem);
+    border-bottom: 1px solid var(--rule);
+  }
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(3.2rem, 12vw, 6.5rem);
+    line-height: 0.88;
+    letter-spacing: 0.005em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .deck {
+    font-size: clamp(1.06rem, 2.4vw, 1.25rem);
+    color: var(--text-2);
+    max-width: 46ch;
+    margin: 1.5rem 0 0;
+    text-wrap: pretty;
+  }
+  .provenance {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.75rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule-soft);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+
+  /* ---------- part dividers ---------- */
+
+  .part {
+    background: var(--band);
+    color: var(--band-text);
+    padding-block: clamp(2.75rem, 7vw, 4.5rem);
+    margin-top: clamp(3rem, 7vw, 5rem);
+  }
+  .part-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin: 0 0 0.9rem;
+  }
+  .part h2 {
+    font-family: var(--display);
+    font-size: clamp(2.4rem, 7.5vw, 4rem);
+    line-height: 0.95;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .part p {
+    color: var(--band-text-2);
+    max-width: 52ch;
+    margin: 1.25rem 0 0;
+  }
+
+  /* ---------- sections ---------- */
+
+  section { padding-block: clamp(2.25rem, 5vw, 3.5rem); }
+
+  h3 {
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 4.2vw, 2.35rem);
+    line-height: 1.04;
+    margin: 0 0 0.35rem;
+    text-wrap: balance;
+  }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cyan-ink);
+    margin: 0 0 0.75rem;
+    font-weight: 500;
+  }
+  h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 2rem 0 0.4rem;
+  }
+  p { margin: 0 0 1.1rem; text-wrap: pretty; }
+  p:last-child { margin-bottom: 0; }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+
+  .lede {
+    font-size: 1.16rem;
+    line-height: 1.55;
+    color: var(--text);
+  }
+
+  /* ---------- pull stat ---------- */
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 2rem 0;
+  }
+  .stat {
+    background: var(--ground);
+    padding: 1.25rem 1.35rem 1.4rem;
+  }
+  .stat-num {
+    font-family: var(--display);
+    font-size: clamp(2.1rem, 5.5vw, 2.9rem);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    display: block;
+  }
+  .stat-num .unit { font-size: 0.55em; color: var(--text-2); margin-left: 0.12em; }
+  .stat-label {
+    font-size: 0.74rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    margin: 0.6rem 0 0;
+    line-height: 1.4;
+  }
+
+  /* ---------- table ---------- */
+
+  .table-scroll {
+    overflow-x: auto;
+    margin: 2rem 0 0.9rem;
+    border-top: 2px solid var(--text);
+    border-bottom: 1px solid var(--rule);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    font-variant-numeric: tabular-nums;
+  }
+  caption {
+    caption-side: top;
+    text-align: left;
+    font-size: 0.74rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    padding-bottom: 0.7rem;
+  }
+  th, td {
+    text-align: right;
+    padding: 0.6rem 0.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+    white-space: nowrap;
+  }
+  th:first-child, td:first-child {
+    text-align: left;
+    white-space: normal;
+    min-width: 13ch;
+  }
+  thead th {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-2);
+    font-weight: 500;
+    border-bottom: 1px solid var(--rule);
+  }
+  tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
+  .row-total th, .row-total td {
+    border-top: 1px solid var(--rule);
+    font-weight: 700;
+  }
+  .pos { color: var(--good); }
+  .figure-note {
+    font-size: 0.82rem;
+    color: var(--text-2);
+    margin: 0;
+  }
+
+  /* ---------- run sheet ---------- */
+
+  .runsheet { margin: 1.75rem 0 0; }
+  .cue {
+    display: grid;
+    grid-template-columns: 7.5ch 1fr;
+    gap: 0 1.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .cue:first-child { border-top: 1px solid var(--rule); }
+  .cue-time {
+    font-family: var(--display);
+    font-size: 1.5rem;
+    line-height: 1.15;
+    font-variant-numeric: tabular-nums;
+    color: var(--cyan-ink);
+    padding-top: 0.05em;
+  }
+  .cue-body h5 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 0.3rem;
+  }
+  .cue-body p { font-size: 0.94rem; color: var(--text-2); margin: 0; }
+  .cue--hot .cue-time { color: var(--text); }
+  .cue--hot { background: var(--ground-2); }
+  .cue--hot .cue-body h5::after {
+    content: "SHOW";
+    font-family: var(--body);
+    font-size: 0.6rem;
+    letter-spacing: 0.16em;
+    background: var(--cyan);
+    color: #0e0e0e;
+    padding: 0.15em 0.5em;
+    margin-left: 0.6rem;
+    vertical-align: 0.15em;
+    border-radius: 2px;
+  }
+  .cue--hot { padding-inline: 1rem; margin-inline: -1rem; }
+
+  /* ---------- two roles ---------- */
+
+  .roles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin: 1.75rem 0 0;
+  }
+  .role { background: var(--ground); padding: 1.5rem 1.4rem; }
+  .role-name {
+    font-family: var(--display);
+    font-size: 1.75rem;
+    line-height: 1;
+    margin: 0 0 0.15rem;
+  }
+  .role-pay {
+    font-size: 0.74rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--cyan-ink);
+    margin: 0 0 1rem;
+  }
+  .role ul { margin: 0; padding-left: 1.1rem; }
+  .role li { font-size: 0.93rem; margin-bottom: 0.55rem; color: var(--text-2); }
+  .role li:last-child { margin-bottom: 0; }
+  .role li strong { color: var(--text); }
+
+  .tandem {
+    border-left: 3px solid var(--cyan);
+    padding: 0.15rem 0 0.15rem 1.35rem;
+    margin: 1.75rem 0 0;
+    font-size: 1.02rem;
+  }
+
+  /* ---------- rules list ---------- */
+
+  .rules { list-style: none; margin: 1.5rem 0 0; padding: 0; }
+  .rules li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 0.9rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--rule-soft);
+    font-size: 0.96rem;
+  }
+  .rules li:first-child { border-top: 1px solid var(--rule); }
+  .rules li::before {
+    content: "";
+    width: 8px; height: 8px;
+    background: var(--cyan);
+    margin-top: 0.55em;
+  }
+  .rules strong { display: block; margin-bottom: 0.15rem; }
+  .rules span { color: var(--text-2); }
+
+  /* ---------- city list ---------- */
+
+  .cities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .cities li {
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid var(--rule);
+    padding: 0.32rem 0.7rem;
+    color: var(--text-2);
+  }
+
+  ul.plain { padding-left: 1.15rem; margin: 0 0 1.1rem; }
+  ul.plain li { margin-bottom: 0.5rem; }
+
+  /* ---------- footer ---------- */
+
+  .colophon {
+    background: var(--band);
+    color: var(--band-text-2);
+    margin-top: clamp(3rem, 7vw, 5rem);
+    padding-block: clamp(2.5rem, 6vw, 3.5rem);
+    font-size: 0.88rem;
+  }
+  .colophon strong { color: var(--band-text); }
+  .colophon p { max-width: 58ch; }
+  .colophon hr {
+    border: none;
+    border-top: 1px solid var(--band-rule);
+    margin: 1.75rem 0;
+  }
+  .colophon .wordmark { font-size: 0.95rem; color: var(--band-text); }
+
+  a { color: var(--cyan-ink); }
+  a:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+</style>
+
+<header class="masthead">
+  <div class="wrap wrap--wide">
+    <p class="wordmark">SCHREIER GROUP</p>
+    <p class="wordmark-sub">A family firm helping small business owners grow</p>
+  </div>
+</header>
+
+<div class="wrap wrap--wide title-block">
+  <h1>The Experience<br>Venue Playbook</h1>
+  <p class="deck">How a live-actor experience ran in sixteen cities at once on two manuals, a shipping pod, and five contractors per market — and what it costs you to ignore any part of it.</p>
+  <div class="provenance">
+    <span>16 locations</span>
+    <span>3 countries</span>
+    <span>2014&ndash;2015 operating record</span>
+  </div>
+</div>
+
+<div class="part">
+  <div class="wrap wrap--wide">
+    <p class="part-label">Part One</p>
+    <h2>What this does for you</h2>
+    <p>Two cities ran the identical show in the same month. One kept 59 cents of every dollar. The other kept 21. Nothing about the room was different.</p>
+  </div>
+</div>
+
+<section class="wrap wrap--wide">
+  <p class="eyebrow">The number that matters</p>
+  <h3>Same show, same month, triple the margin</h3>
+  <p class="lede">In May 2014, Chicago and Columbus each ran the same sixty-minute production out of the same kit, using the same two manuals. Chicago cleared $14,580 on $24,883. Columbus cleared $1,681 on $7,901.</p>
+
+  <div class="table-scroll">
+    <table>
+      <caption>May 2014 &mdash; two markets, identical production</caption>
+      <thead>
+        <tr>
+          <th scope="col">Line</th>
+          <th scope="col">Chicago</th>
+          <th scope="col">Columbus</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Ticket revenue</th><td>$24,882.76</td><td>$7,900.75</td></tr>
+        <tr><th scope="row">Participants</th><td>834</td><td>597</td></tr>
+        <tr><th scope="row">Transactions</th><td>272</td><td>397</td></tr>
+        <tr><th scope="row">Revenue per head</th><td>$29.84</td><td>$13.23</td></tr>
+        <tr><th scope="row">Heads per transaction</th><td>3.07</td><td>1.50</td></tr>
+        <tr><th scope="row">Actor invoices</th><td>$5,270.00</td><td>$3,600.00</td></tr>
+        <tr><th scope="row">Rent</th><td>$860.00</td><td>$1,000.00</td></tr>
+        <tr><th scope="row">Total expenses</th><td>$10,302.45</td><td>$6,219.74</td></tr>
+        <tr class="row-total"><th scope="row">Monthly profit</th><td class="pos">$14,580.31</td><td class="pos">$1,681.02</td></tr>
+        <tr class="row-total"><th scope="row">Margin</th><td class="pos">58.6%</td><td class="pos">21.3%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="figure-note">Figures as recorded in the executive producer's monthly close. Marketing spend was booked at $0 in both markets.</p>
+
+  <h4>Read the third and fifth rows together</h4>
+  <p>Columbus sold <strong>more transactions</strong> than Chicago and served <strong>fewer people</strong>. It took 397 separate sales to fill 597 seats — one and a half people per sale. Chicago took 272 sales to fill 834 seats — three people per sale.</p>
+  <p>Columbus was selling seats to individuals at a discount. Chicago was selling <em>rooms</em> to groups at list. The room holds twelve either way. The staffing cost is identical either way. The only thing that changed was who was buying and what they paid.</p>
+  <p>List price was $28. Chicago collected $29.84 a head. Columbus collected $13.23 — under half. The customer survey opens by asking "How did you hear about us?" and the first option printed on the page is <em>Groupon / Living Social / daily deal site</em>. That is where the margin went.</p>
+
+  <div class="stat-row">
+    <div class="stat">
+      <span class="stat-num">12</span>
+      <p class="stat-label">Seats per room, sold out or not</p>
+    </div>
+    <div class="stat">
+      <span class="stat-num">$55<span class="unit">/show</span></span>
+      <p class="stat-label">Total cast cost, any audience size</p>
+    </div>
+    <div class="stat">
+      <span class="stat-num">$336</span>
+      <p class="stat-label">A full room at list price</p>
+    </div>
+  </div>
+
+  <p>A sold-out room bills $336 and costs $55 to staff. A half-full discounted room bills perhaps $85 and still costs $55 to staff. The cast gets paid per show, never per head — so <strong>every empty seat and every discounted seat comes out of profit at full weight.</strong> This is the whole business in one sentence.</p>
+</section>
+
+<section class="wrap wrap--wide">
+  <p class="eyebrow">What you are actually buying</p>
+  <h3>Four assets, not one idea</h3>
+  <p>The reason this ran in sixteen markets at once is that none of it depended on the founder being in the room. It was four transferable assets:</p>
+
+  <ul class="rules">
+    <li><strong>A kit that ships</strong><span>The entire set moves in a single POD — furniture, clues, locks, timer, signage. A new market opens by unloading a container, not by commissioning a build.</span></li>
+    <li><strong>Two manuals</strong><span>One for the cast, one for the local producer. Between them they cover hiring, training, scheduling, invoicing, refunds, emergencies, minors, and what to do when only one actor shows up.</span></li>
+    <li><strong>Fixed unit economics</strong><span>$25 a show for the host, $30 for the performer, $600 a month for the local producer. Every market's cost line is knowable before it opens.</span></li>
+    <li><strong>A scarcity-built booking system</strong><span>Tickets release exactly one month ahead, at 12:30 in the morning. Nothing further out is purchasable — which is what pushes buyers into groups.</span></li>
+  </ul>
+
+  <p style="margin-top:1.75rem;">Those four assets supported these markets simultaneously, with a second production running in two of them:</p>
+  <ul class="cities">
+    <li>Atlanta</li><li>Boston</li><li>Chicago</li><li>Columbus</li><li>Dallas</li><li>Washington DC</li><li>Denver</li><li>Houston</li><li>Los Angeles</li><li>London</li><li>New York (7th)</li><li>New York (36th)</li><li>Philadelphia</li><li>San Francisco</li><li>Seattle</li><li>Toronto</li>
+  </ul>
+</section>
+
+<div class="part">
+  <div class="wrap wrap--wide">
+    <p class="part-label">Part Two</p>
+    <h2>How to run it</h2>
+    <p>The show is sixty minutes. The operation is a two-hour-twenty turn, and it repeats. Everything below is timed off the clock, because that is how the room was actually run.</p>
+  </div>
+</div>
+
+<section class="wrap wrap--wide">
+  <p class="eyebrow">The turn</p>
+  <h3>One cycle, start to reset</h3>
+  <p>Two people run the entire operation. There is no third role, no manager on duty, no front-of-house staff. The times below are the published run sheet for an evening slot.</p>
+
+  <div class="runsheet">
+    <div class="cue">
+      <div class="cue-time">5:50</div>
+      <div class="cue-body">
+        <h5>Cast arrives, performer disappears</h5>
+        <p>Costume and makeup in under ten minutes. The performer must be inside the room and out of sight before the first guest walks in — the reveal is the product.</p>
+      </div>
+    </div>
+    <div class="cue">
+      <div class="cue-time">6:10</div>
+      <div class="cue-body">
+        <h5>Guests arrive &mdash; four things, in order</h5>
+        <p>Coats hung. <strong>Waiver signed — every guest, no exceptions.</strong> Bathroom, framed as a joke so nobody is embarrassed to go. Name tag, and they can be anyone they want. The host writes every name down; that list becomes the closing script.</p>
+      </div>
+    </div>
+    <div class="cue">
+      <div class="cue-time">6:30</div>
+      <div class="cue-body">
+        <h5>Rules, tips, questions</h5>
+        <p>Delivered standing at the posted signs, not recited from memory. Any question about what happens inside gets one answer: "You'll find out."</p>
+      </div>
+    </div>
+    <div class="cue cue--hot">
+      <div class="cue-time">6:45</div>
+      <div class="cue-body">
+        <h5>Doors close, clock starts</h5>
+        <p>Hard deadline. Latecomers past the fifteen-minute mark are rescheduled, not squeezed in — a late entry changes the dynamics of the room for everyone already inside.</p>
+      </div>
+    </div>
+    <div class="cue">
+      <div class="cue-time">7:45</div>
+      <div class="cue-body">
+        <h5>Buzzer, applause, bow</h5>
+        <p>Called loud and immediately, win or lose. The room applauds the performer by name. The performer bows, breaks character, and starts the reset while the guests are still in the room.</p>
+      </div>
+    </div>
+    <div class="cue">
+      <div class="cue-time">7:47</div>
+      <div class="cue-body">
+        <h5>Curtain call &mdash; the part that sells the next ticket</h5>
+        <p>Every guest is named for one specific thing they did. Then photos with the signs, a Polaroid taped to the wall, and a flyer in hand. Detail below.</p>
+      </div>
+    </div>
+    <div class="cue">
+      <div class="cue-time">8:00</div>
+      <div class="cue-body">
+        <h5>Group leaves, room is already reset</h5>
+        <p>The performer's last act is recoiling the chain, because it is loud. By then the guests should be gone.</p>
+      </div>
+    </div>
+    <div class="cue">
+      <div class="cue-time">8:10</div>
+      <div class="cue-body">
+        <h5>Next group arrives</h5>
+        <p>Ten minutes of slack in a two-hour-twenty cycle. That is the entire buffer, which is why the reset is choreographed rather than tidied.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap wrap--wide">
+  <p class="eyebrow">The mechanism</p>
+  <h3>Two roles, secretly one</h3>
+
+  <div class="roles">
+    <div class="role">
+      <p class="role-name">Host / Omnipotent</p>
+      <p class="role-pay">$25 per show</p>
+      <ul>
+        <li><strong>Before:</strong> checks in, collects waivers, makes small talk, writes down every name.</li>
+        <li><strong>During:</strong> silent. Guides with gesture and stare only. Holds the exit key on a clipboard at all times.</li>
+        <li><strong>After:</strong> becomes the host again and runs the curtain call from the name list.</li>
+      </ul>
+    </div>
+    <div class="role">
+      <p class="role-name">The Performer</p>
+      <p class="role-pay">$30 per show</p>
+      <ul>
+        <li><strong>Tracks the puzzle state</strong> and physically blocks or opens access to the clue the group needs next.</li>
+        <li><strong>Never stands, never chases.</strong> The threat of contact does the work; a chase is a safety problem.</li>
+        <li><strong>Keeps the tension line taut</strong> — the constraint is the antagonist, not the costume.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="tandem">Unknown to the audience, both roles are working the same objective: get this group to the final step with about a minute left. Not to beat them, and not to let them coast. Every group should walk out believing they were thirty seconds from the other outcome.</p>
+
+  <p style="margin-top:1.5rem;">That is a manufactured result, produced live, every hour, by two contractors earning $55 between them. It is also the only reason the curtain call works.</p>
+</section>
+
+<section class="wrap wrap--wide">
+  <p class="eyebrow">The retention engine</p>
+  <h3>The curtain call is not a courtesy</h3>
+  <p>Most groups do not escape. Left alone, they leave feeling stupid, and they do not refer anyone. The curtain call exists to convert a loss into a story worth repeating, and it is scripted:</p>
+
+  <ul class="plain">
+    <li><strong>Name every person for something specific.</strong> Who found the hidden clue, who said the funniest line, who kept notes. This is what the name list was for.</li>
+    <li><strong>Rank them against other groups, favourably.</strong> "Most groups take the whole hour to get that — you had it in ten minutes." People who lose immediately want to know how they compare.</li>
+    <li><strong>Photos with the win sign or the loss sign.</strong> Both signs exist. Losing is given its own trophy.</li>
+    <li><strong>Ask for the referral in the room.</strong> Escaped: "Are your friends as smart as you are?" Didn't: "Invite your friends and see if they do better." Flyer in hand as they say it.</li>
+    <li><strong>Protect the secret.</strong> Share anything online, but no clues — that is what keeps the room resellable.</li>
+    <li><strong>Sell the return visit.</strong> They cannot play again knowing the answers. They <em>can</em> come back for $10 as the silent guide and watch their friends suffer.</li>
+  </ul>
+
+  <p style="margin-top:1.75rem;">Note what that last one is: a $10 ticket that costs nothing to fulfil, sold to someone who has already paid once, whose whole job is to bring a new full-price group with them.</p>
+</section>
+
+<section class="wrap wrap--wide">
+  <p class="eyebrow">Opening a market</p>
+  <h3>Three and a half days to open</h3>
+  <p>The Los Angeles opening report is the template, and it is short because the process is genuinely this compressed:</p>
+
+  <div class="runsheet">
+    <div class="cue">
+      <div class="cue-time">D1</div>
+      <div class="cue-body">
+        <h5>Licence, container, build</h5>
+        <p>Business licence filed at city hall that morning and framed by the door. Container unloaded the same afternoon; set repaired and staged into the night.</p>
+      </div>
+    </div>
+    <div class="cue">
+      <div class="cue-time">D2</div>
+      <div class="cue-body">
+        <h5>Audition show &mdash; thirteen candidates</h5>
+        <p>Not an audition room. A real performance, run for the candidates, so they see the job before they take it. Set faults found here get fixed the same night.</p>
+      </div>
+    </div>
+    <div class="cue">
+      <div class="cue-time">D3</div>
+      <div class="cue-body">
+        <h5>Second audition show, lobby furnished, producer hired</h5>
+        <p>Ten more candidates. Lobby furnished from a yard sale and a hardware store the same afternoon. The local producer is offered the job that evening.</p>
+      </div>
+    </div>
+    <div class="cue cue--hot">
+      <div class="cue-time">D4</div>
+      <div class="cue-body">
+        <h5>Producer trained, cast trained, team formed</h5>
+        <p>Producer walked through keys, repairs, scheduling, guest email and paperwork. Two training shows for the cast. The team resets the room together twice, rehearses the difficult scenarios — a group with no reservation, a drunk group, a group that simply is not getting it — and agrees a safe word.</p>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top:1.75rem;">Twenty-eight people auditioned across three shows. Five were invited onto the opening team and four accepted. <strong>Everyone else was called personally and put on a ranked understudy list</strong> before the trainer left town. A market that opens with four contractors and no bench closes the first time somebody gets the flu.</p>
+
+  <h4>What the first opening taught them</h4>
+  <p>The report's own lessons list is the most valuable page in the archive, because it is all failure: furniture shipped unsecured arrived scratched and broken and cost three and a half hours to repair; clues packed loose inside the furniture damaged it in transit and took hours to find; fixtures came loose and nobody knew what belonged to what; a cabinet arrived with mould on it; three separate clues were printed wrong and shipped anyway; and the contractor agreement referred to the signer as an employee rather than a contractor.</p>
+  <p>Every one of those became a packing rule. That is what a playbook is — somebody else's bad weekend, written down so it is not yours.</p>
+</section>
+
+<section class="wrap wrap--wide">
+  <p class="eyebrow">Non-negotiable</p>
+  <h3>The rules that are not preferences</h3>
+  <ul class="rules">
+    <li><strong>No waiver, no entry.</strong><span>Stated twice in both manuals, in capitals. There is no version of this that is worth the exception.</span></li>
+    <li><strong>The exit key never leaves the room.</strong><span>It stays on the guide's clipboard. Anyone who wants out gets out, immediately, no negotiation. A child leaving must be accompanied by an adult.</span></li>
+    <li><strong>Injury stops the show.</strong><span>Character breaks, help is found. Nothing else is being weighed.</span></li>
+    <li><strong>Never move the clues.</strong><span>The guide's entire performance depends on knowing where everything is. A "helpful" rearrangement wrecks the next six shows.</span></li>
+    <li><strong>Contact is theatre, never force.</strong><span>Only a cornered guest, only slowly, never mid-movement. Nobody is chased.</span></li>
+    <li><strong>Refund the unhappy guest.</strong><span>The policy says no refunds. The manual says pay them anyway. A $28 refund is cheaper than the review.</span></li>
+    <li><strong>The room is reset for tomorrow before anyone goes home.</strong><span>Not for tonight. For the first show of the next day, when someone may be running late.</span></li>
+  </ul>
+</section>
+
+<section class="wrap wrap--wide">
+  <p class="eyebrow">If you take one thing</p>
+  <h3>Sell rooms, not seats</h3>
+  <p class="lede">Your cast cost, your rent, and your hour are fixed the moment you open the doors. The only variable you control is who is standing in the room and what they paid to be there.</p>
+  <p>Chicago and Columbus prove it inside a single month, with no marketing spend on either side. The difference between a 59% margin and a 21% margin was not a better room, a better cast, or a better city. It was that one market sold twelve seats at once to a group who wanted the whole room, and the other sold them one and a half at a time to people holding a coupon.</p>
+  <p>Everything else in this playbook — the scarcity window, the curtain call, the referral ask, the $10 return ticket, the ranked understudy bench — exists to make the first thing happen and the second thing unnecessary.</p>
+</section>
+
+<footer class="colophon">
+  <div class="wrap wrap--wide">
+    <p class="wordmark">SCHREIER GROUP</p>
+    <hr>
+    <p><strong>Where this came from.</strong> This playbook is drawn from the operating archive of a live-actor immersive production that ran in sixteen locations across the United States, Canada and the United Kingdom in 2014 and 2015 — the cast and producer manuals, the executive producer's monthly closes, the Los Angeles opening report, and the guest survey.</p>
+    <p>Every figure quoted is taken directly from those records rather than reconstructed. The reading of the Chicago-versus-Columbus margin gap as a discounting problem is our interpretation of the transaction data and the survey design; the underlying numbers are as recorded.</p>
+    <hr>
+    <p>Prepared by Schreier Group LLC &nbsp;·&nbsp; schreiergroup.com</p>
+  </div>
+</footer>
